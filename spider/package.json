@@ -1,0 +1,22 @@
+{
+  "name": "spider-ggf",
+  "version": "1.0.0",
+  "description": "fund crawler",
+  "main": "src/main.js",
+  "author": "Max",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "dependencies": {
+    "@octokit/rest": "^18.0.6",
+    "chalk": "^4.1.0",
+    "cheerio": "^0.22.0",
+    "crawler": "^1.2.2",
+    "dateformat": "^3.0.3",
+    "fs-extra": "^9.0.1",
+    "iconv-lite": "^0.6.2",
+    "json2csv": "^5.0.5"
+  },
+  "devDependencies": {}
+}
