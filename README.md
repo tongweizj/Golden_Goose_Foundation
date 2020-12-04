@@ -14,18 +14,33 @@ README 不包含以下内容:
 
 ## ToDo
 
+# v 0.1 打底
+
 - [x] #spider 借用代码打底, [fund-crawler](https://github.com/nullpointer/fund-crawler)
 - [x] #spider 删除多余代码: 分析模块\保存数据到 github 模块
 - [x] #spider 增加模块,将采集的数据,以 csv 的格式保存在本地
+
+# v 0.2 基金排名
 - [ ] #API 新建基金
 - [ ] #API 添加基金的排名
 - [ ] #spider 采集的基金列表,保存到 mongoDB
+- [ ] #web 显示各类基金的排行
+
+# v0.3 基金价格数据更新
+
 - [ ] #API 添加基金一天的价格数据
 - [ ] #spider 基金抓取调度
 - [ ] #spider 基金当天数据抓取
 - [ ] #API 添加基金多天的价格数据
 - [ ] #spider 基金全量历史数据抓取
+- [ ] #web 在排行榜页面,点击单基金,跳转详情页
 
+# v0.4 基金池
+- [ ] #analysis 4433 法则，筛选目标基金
+- [ ] #API 给基金打 4433 标签
+- [ ] #API 给基金算4433积分
+- [ ] #web 增加 4433 基金列表
+- [ ] #analysis 算 4433 积分
 ## 代码模块说明
 
 本应用包含3个模块
@@ -33,6 +48,7 @@ README 不包含以下内容:
 - spider  数据爬虫
 - api     数据API
 - analysis 数据分析
+- admin   web,快速查看数据
 
 ###  api
 
