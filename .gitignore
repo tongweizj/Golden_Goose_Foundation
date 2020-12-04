@@ -1,2 +1,6 @@
 *.pyc
 .DS_Store
+
+
+# 不添加到库里的目录
+reference/

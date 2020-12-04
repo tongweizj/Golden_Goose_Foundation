@@ -22,11 +22,7 @@
 - 基金全量历史数据抓取
 - 基金当天数据抓取
 
-### 参考
 
-#### nodejs-fund-crawler
-
-https://github.com/nullpointer/fund-crawler
 
 
 
@@ -38,3 +34,14 @@ https://github.com/nullpointer/fund-crawler
 最近一年、两年、三年、五年及成立以来收益率排名同类基金的前1/4
 最近三个月、六个月收益率排名同类基金的前1/3
 笔者实现了一个应用，依据上述法则筛选基金，降低广大基民踩雷的风险。
+
+
+## Reference 参考
+
+### 参考
+
+#### nodejs-fund-crawler
+
+- 用 js 在天天基金网上抓基金数据
+- 有一个统计多年排行榜的算法可以参考
+https://github.com/nullpointer/fund-crawler
