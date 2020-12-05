@@ -2,13 +2,13 @@ var express = require('express');
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const {graphqlHTTP} = require("express-graphql");
-const schema = require("./app/graphql/schema/index");
-const root = require("./app/graphql/resolvers/index");
+const schema = require("./lib/graphql/schema/index");
+const root = require("./lib/graphql/resolvers/index");
 
 // const schema = require("./app/graphql/schema/type");
 
 // 连接数据库
-const db = require("./app/models");
+const db = require("./lib/models");
 db.mongoose
   .connect(db.testUrl, {
     useNewUrlParser: true,

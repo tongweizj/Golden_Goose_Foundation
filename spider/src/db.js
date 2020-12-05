@@ -77,23 +77,23 @@ class DBTask {
         /// 声明导出的字段
         const fields = [
             {
-              label: "编号",  // 字段的标题
+              label: "code",  // 字段的标题
               value: "code"  // 对应的 字段
             },
             {
-              label: "名称",
+              label: "name",
               value: "name"
             },
             {
-                label: "日期",
+                label: "day",
                 value: "day"
               },
               {
-                label: "净值",
+                label: "unitNetWorth",
                 value: "unitNetWorth"
               },
               {
-                label: "名称",
+                label: "dayOfGrowth",
                 value: "dayOfGrowth"
               },
               {
