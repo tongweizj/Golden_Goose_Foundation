@@ -108,6 +108,7 @@ mutation($fund:FundInput){
 }
 // 查询 variables
 {"fund": {"name":"中金精选股票C", "code":"920922"}}
+{"fund": {"name":"中金精选股票C222", "code":"920922222","type": "gp"}}
 // 创建成功,返回信息
 {
   "data": {
@@ -134,7 +135,7 @@ mutation($id:ID!,$input:FundInput){
   }
 }
 // 查询 variables
-{"id": "5fcba36c1a383b18defba1ef","input": {"name":"中金精选股票Cc", "code":"9209221"}}
+{"id": "5fce762dba7bf416be8c7f27","input": {"name":"中金精选股票Cc", "code":"9209221","type": "sss"}}
 // 修改成功,返回信息
 {
   "data": {
@@ -241,10 +242,11 @@ query($code:String!){
 
 ```json
 // 语句
-mutation($code:String!,$name:String,$input:FundIncreaseInput){
-  createFundIncrease(code:$code, name:$name,input:$input){
+mutation($code:String!,$name:String,$input:FundIncreaseInput,$type:String){
+  createFundIncrease(code:$code, name:$name,type:$type,input:$input){
     name
     code
+    type
   }
 }
 // 查询 variables

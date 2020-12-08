@@ -1,6 +1,6 @@
 
 
-const Log = require('./log')
+const Log = require('../utils/log')
 const { Parser } = require('json2csv');
 var iconv = require('iconv-lite');
 const fs = require('fs-extra')
@@ -137,7 +137,7 @@ class DBTask {
         /// 接口数据转换
         const json2csvParser = new Parser({fields});
         const csv = json2csvParser.parse(this.content);
-        console.log(csv);
+        // console.log(csv);
 
         /// 数据编码调整
         let csvBuf = new Buffer(csv);
@@ -148,6 +148,7 @@ class DBTask {
         ///  文件导出, 暂时保存在本地
         fs.outputFileSync('records/' + this.path, str2);
 
+        
         // githubDB.writeFileContent(this.path, this.content).then(response => {
         //     if (response.status >= 200 && response.status <= 300) {
         //         Log.success('Succeed to write ' + this.path)

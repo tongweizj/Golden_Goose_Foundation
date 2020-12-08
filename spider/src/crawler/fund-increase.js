@@ -4,11 +4,11 @@ const DateFormat = require('dateformat');
 const Util = require('util');
 const Crawler = require('crawler');
 
-const DB = require('../db');
+const DB = require('../services/local-file');
 const FundParser = require('../analyzer/fundparser');
-const Log = require('../log');
+const Log = require('../utils/log');
 const { subtract } = require('lodash');
-
+const FundIncrease = require('../controllers/fund-increase')
 /// 天天基金的排行榜爬取模块
 // Crawl url
 
@@ -99,6 +99,9 @@ class Scheduler {
         this.tryTimes = 0
 
         var self = this
+        // self.taskQueue = TaskQueue.from([
+        //     'gp',   // 股票型
+        // ])
         self.taskQueue = TaskQueue.from([
             'gp',   // 股票型
             'hh',   // 混合型
@@ -107,7 +110,6 @@ class Scheduler {
             'qdii', // QDII
             'fof'   // FOF
         ])
-
         self.crawler = new Crawler({
             rateLimit: 1000, // between two tasks, minimum time gap is 1000 (ms)
             maxConnections: 1,
@@ -118,11 +120,12 @@ class Scheduler {
 
                 } else {
                     Log.success('Succeed to crawl ' + res.options.uri)
+                    FundIncrease.start(res.body,res.options.task.type,res.options.task.storePath);
 
-                    const filepath = res.options.task.storePath; // 存储路径
-                    const funds = FundParser.parseRank(res.body); // 输入: 抓取页面的原始 html,输出: 基金列表
-                    // console.log(funds); //测试,抓取后输入的是什么样的数据
-                    DB.write(filepath, funds) // 存储模块,这一次先改成写本地
+                    // const filepath = res.options.task.storePath; // 存储路径
+                    // const funds = FundParser.parseRank(res.body); // 输入: 抓取页面的原始 html,输出: 基金列表
+                    // // console.log(funds); //测试,抓取后输入的是什么样的数据
+                    // DB.write(filepath, funds) // 存储模块,这一次先改成写本地
         
                     // const recommendPath = res.options.task.recommendStorePath;
                     // const recommendFunds = Analyzer.analyze(funds);

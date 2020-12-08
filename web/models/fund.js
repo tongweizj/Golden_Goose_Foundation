@@ -3,8 +3,7 @@ const Schema = mongoose.Schema;
 
 const fundSchema = new Schema({
   name: String,
-  code: String,
-  type: String
+  code: String
 });
 
 module.exports = mongoose.model("fund", fundSchema);

@@ -7,11 +7,13 @@ module.exports = buildSchema(`
     id:ID
     name: String!
     code: String!
+    type: String
   }
 
   type FundIncrease{
     name: String,
     code: String!,
+    type: String,
     lastUpdate:String,
     unitNetWorth:String,
     dayOfGrowth:String,
@@ -29,6 +31,7 @@ module.exports = buildSchema(`
   input FundInput {
     name: String,
     code: String,
+    type: String
   }
 
   input FundIncreaseInput{
@@ -59,7 +62,7 @@ module.exports = buildSchema(`
     updateFund(id: ID!, input: FundInput): Fund,
     deleteFund(id: ID!): Fund,
     
-    createFundIncrease(code: String!, name:String, input:FundIncreaseInput): FundIncrease,
+    createFundIncrease(code: String!, name:String, type:String, input:FundIncreaseInput): FundIncrease,
     updateFundIncrease(code: String!, update: FundIncreaseInput): FundIncrease,
     deleteFundIncrease(code: String!): FundIncrease,
     

@@ -5,3 +5,5 @@
 # 不添加到库里的目录
 reference/
 reference/fund-crawler
+web/node_modules/
+spider/records/
