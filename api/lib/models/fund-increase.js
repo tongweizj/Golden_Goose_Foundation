@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const fundIncreaseSchema = new Schema({
   name: String,
   code: String,
-  type: String,
+  tags: Array,
   lastUpdate:String,
   unitNetWorth:String,
   dayOfGrowth:String,

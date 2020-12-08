@@ -8,8 +8,8 @@ module.exports = {
       // const bookFetched = await Book.find()
       // var query = { jd_id: new ObjectId(jd.id) };
       // var condition = id ? { id: id} : {};
+
       return Fund.findById(id)
-      
     } catch (error) {
       throw error
     }
@@ -58,6 +58,23 @@ module.exports = {
       // 输入数据检验
       console.log(id)
       return Fund.findByIdAndUpdate(id, input, { useFindAndModify: false })
+    } catch (error) {
+      throw error
+    }
+  },
+
+  updateFundTag:({code, tag}) =>{
+    try {
+      // 输入数据检验
+      console.log(code)
+      console.log(tag)
+      // Fund.findOneAndUpdate({code:code},{$addToSet:{tags:tag}},{new: true },function(err,docs){
+      //   if(err) console.log(err);
+      //   // console.log('更改成功'+String(docs))
+      //   console.log('更改成功:' + JSON.stringify(docs, null, 4))
+      //   return docs
+      // })
+      return Fund.findOneAndUpdate({code:code},{$addToSet:{tags:tag},lean:true,new:true},{useFindAndModify: false });
     } catch (error) {
       throw error
     }
@@ -114,12 +131,21 @@ module.exports = {
       const filter = { code: code };
       return FundIncrease.findOneAndUpdate(filter, update,{
         new: true
-      })
+      },{useFindAndModify: false })
     } catch (error) {
       throw error
     }
   },
-
+  updateFundIncreaseTag:({code, tag}) =>{
+    try {
+      // 输入数据检验
+      console.log(code)
+      console.log(tag)
+      return FundIncrease.findOneAndUpdate({code:code},{$addToSet:{tags:tag},lean:true,new:true},{useFindAndModify: false });
+    } catch (error) {
+      throw error
+    }
+  },
   deleteFundIncrease: ({code}) => {
     // 输入数据检验
        console.log(code)
