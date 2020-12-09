@@ -60,10 +60,11 @@ exports.start = function start(data, type, filepath) {
   var waitListTimes = 1
   var createFundList
   var waitListLength = 0
-  async.mapLimit(funds, 2, function (fund, callback) {
+  async.mapLimit(funds, 1, function (fund, callback) {
     Log.info('Start queryFund task:' + taskTimes + '/' + taskLength)
     taskTimes += 1
     // 1) 检查基金是否存在
+    Log.info('Start queryFund task data:' + fund.code)
     Mongo.queryFund(fund.code, function (resp) {
       Log.info('Finish queryFund task ' + taskTimes + 'data:' + resp.fundByCode)
       // 如果不存在,就添加到创建的 waitlist
@@ -73,9 +74,18 @@ exports.start = function start(data, type, filepath) {
         callback(null, fund)
       } else {
         // 如果存在,就更新基金记录
+        Log.success('Start api: updateFundIncrease, get code: ' + fund)
         Mongo.updateFundIncrease(fund, function (resp) {
           Log.success('Finish updateFundIncrease task: ' + resp.updateFundIncrease)
         })
+        // Log.info('Start create updateFundTag:  ' + fund.code)
+        // Mongo.updateFundTag(fund, function (resp) {
+        //   Log.info('Finish create updateFundTag:  ' + resp.tags)
+        // })
+        // Log.info('Start create updateFundIncreaseTag:  ' + fund.code)
+        // Mongo.updateFundIncreaseTag(fund, function (resp) {
+        //   Log.info('Finish updateFundIncreaseTag:  ' + resp.tags)
+        // })
         callback(null, null)
       }
     })
@@ -85,16 +95,22 @@ exports.start = function start(data, type, filepath) {
 
     createFundList = results
     Log.info('create Fund List length is  ' + createFundList.length)
-    async.mapLimit(createFundList, 2, async function (fund) {
+    async.mapLimit(createFundList, 1, async function (fund) {
       if (fund != null) {
         Log.info('Start waitList task:' + waitListTimes + '/' + waitListLength)
         // 创建新基金
         Mongo.createFund(fund, function (resp) {
           Log.info('Finish create Fund:  ' + resp.createFund)
         })
+        Mongo.updateFundTag(fund, function (resp) {
+          Log.info('Finish create Fund:  ' + resp.tags)
+        })
         // 创建新基金涨幅记录
         Mongo.createFundIncrease(fund, function (resp) {
           Log.info('Finish createFundIncrease:  ' + resp.createFundIncrease)
+        })
+        Mongo.updateFundIncreaseTag(fund, function (resp) {
+          Log.info('Finish createFundIncrease:  ' + resp.tags)
         })
       }
     })

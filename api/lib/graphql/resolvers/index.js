@@ -74,7 +74,8 @@ module.exports = {
       //   console.log('更改成功:' + JSON.stringify(docs, null, 4))
       //   return docs
       // })
-      return Fund.findOneAndUpdate({code:code},{$addToSet:{tags:tag},lean:true,new:true},{useFindAndModify: false });
+      return Fund.findOneAndUpdate({code:code},{$addToSet:{tags:tag}},
+        { lean:true,new:true ,useFindAndModify: false });
     } catch (error) {
       throw error
     }
@@ -129,19 +130,23 @@ module.exports = {
       // 输入数据检验
       console.log(code)
       const filter = { code: code };
-      return FundIncrease.findOneAndUpdate(filter, update,{
-        new: true
-      },{useFindAndModify: false })
+      return FundIncrease.findOneAndUpdate(filter, update,
+       { lean:true,new:true ,useFindAndModify: false }
+      )
     } catch (error) {
       throw error
     }
   },
+
+
   updateFundIncreaseTag:({code, tag}) =>{
     try {
       // 输入数据检验
       console.log(code)
       console.log(tag)
-      return FundIncrease.findOneAndUpdate({code:code},{$addToSet:{tags:tag},lean:true,new:true},{useFindAndModify: false });
+      const filter = { code: code };
+      return FundIncrease.findOneAndUpdate(filter,{$addToSet:{tags:tag}},
+        { lean:true,new:true ,useFindAndModify: false });
     } catch (error) {
       throw error
     }

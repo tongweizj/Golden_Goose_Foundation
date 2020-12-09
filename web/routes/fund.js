@@ -7,7 +7,7 @@ const FundIncrease = mongoose.model('fundIncrease');
 
 
 router.get('/', (req, res) => {
-  FundIncrease.find().collation({"locale": "zh", numericOrdering:true}).sort({recent1Year:-1}).limit(100)
+  FundIncrease.find().collation({"locale": "zh", numericOrdering:true}).sort({recent3Month:-1}).limit(100)
     .then((funds) => {
       // console.log(jds)
       res.render('fund/fundranking', {
@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/gp', (req, res) => {
-  FundIncrease.find({type:"gp"}).collation({"locale": "zh", numericOrdering:true}).sort({recent1Year:-1}).limit(100)
+  FundIncrease.find({tags:"gp"}).collation({"locale": "zh", numericOrdering:true}).sort({recent3Month:-1}).limit(100)
     .then((funds) => {
       // console.log(jds)
       res.render('fund/fundranking', {
@@ -39,7 +39,7 @@ router.get('/gp', (req, res) => {
 });
 
 router.get('/hh', (req, res) => {
-  FundIncrease.find({type:"hh"}).collation({"locale": "zh", numericOrdering:true}).sort({recent1Year:-1}).limit(100)
+  FundIncrease.find({tags:"hh"}).collation({"locale": "zh", numericOrdering:true}).sort({recent3Month:-1}).limit(100)
     .then((funds) => {
       // console.log(jds)
       res.render('fund/fundranking', {
@@ -55,7 +55,7 @@ router.get('/hh', (req, res) => {
 });
 
 router.get('/zq', (req, res) => {
-  FundIncrease.find({type:"zq"}).collation({"locale": "zh", numericOrdering:true}).sort({recent1Year:-1}).limit(100)
+  FundIncrease.find({tags:"zq"}).collation({"locale": "zh", numericOrdering:true}).sort({recent3Month:-1}).limit(100)
     .then((funds) => {
       // console.log(jds)
       res.render('fund/fundranking', {
@@ -71,7 +71,7 @@ router.get('/zq', (req, res) => {
 });
 
 router.get('/zs', (req, res) => {
-  FundIncrease.find({type:"zs"}).collation({"locale": "zh", numericOrdering:true}).sort({recent1Year:-1}).limit(100)
+  FundIncrease.find({tags:"zs"}).collation({"locale": "zh", numericOrdering:true}).sort({recent3Month:-1}).limit(100)
     .then((funds) => {
       // console.log(jds)
       res.render('fund/fundranking', {
@@ -86,7 +86,7 @@ router.get('/zs', (req, res) => {
     });
 });
 router.get('/qdii', (req, res) => {
-  FundIncrease.find({type:"qdii"}).collation({"locale": "zh", numericOrdering:true}).sort({recent1Year:-1}).limit(100)
+  FundIncrease.find({tags:"qdii"}).collation({"locale": "zh", numericOrdering:true}).sort({recent3Month:-1}).limit(100)
     .then((funds) => {
       // console.log(jds)
       res.render('fund/fundranking', {
@@ -102,7 +102,7 @@ router.get('/qdii', (req, res) => {
 });
 
 router.get('/fof', (req, res) => {
-  FundIncrease.find({type:"fof"}).collation({"locale": "zh", numericOrdering:true}).sort({recent1Year:-1}).limit(100)
+  FundIncrease.find({tags:"fof"}).collation({"locale": "zh", numericOrdering:true}).sort({recent3Month:-1}).limit(100)
     .then((funds) => {
       // console.log(jds)
       res.render('fund/fundranking', {

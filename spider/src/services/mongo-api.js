@@ -1,6 +1,6 @@
 const { request, gql, GraphQLClient }  = require('graphql-request');
-const mongDBUrl = 'http://192.168.0.100:2000/graphql';
-// const mongDBUrl = 'http://127.0.0.1:4000/graphql';
+// const mongDBUrl = 'http://192.168.0.100:2000/graphql';
+const mongDBUrl = 'http://127.0.0.1:4000/graphql';
 const Log = require('../utils/log');
 
 exports.queryFund = function(code, callback) {
@@ -13,14 +13,18 @@ exports.queryFund = function(code, callback) {
         id
         name
         code
-        type
+        tags
       }}
     `
     const variables = {
         "code": code,
       };
     // console.log(variables);
-    const client = new GraphQLClient(mongDBUrl, { headers: {} })
+    const client = new GraphQLClient(mongDBUrl, { 
+      headers: {
+        'Connection': 'keep-alive',
+        'Accept-Encoding': '',
+        'Accept-Language': 'en-US,en;q=0.8'} })
     client.request(query, variables).then(function(data) {
      callback(data)
     })    
@@ -34,7 +38,6 @@ exports.createFund = function(fund,callback) {
         createFund(fund:$fund){
           name
           code
-          type
         }
       }
     `
@@ -42,16 +45,40 @@ exports.createFund = function(fund,callback) {
         "fund": {
             "name":fund.name ,
             "code":fund.code,
-            "type":fund.type
           }
         };
-    const client = new GraphQLClient(mongDBUrl, { headers: {} })
+    const client = new GraphQLClient(mongDBUrl, { 
+      headers: {
+        'Connection': 'keep-alive',
+        'Accept-Encoding': '',
+        'Accept-Language': 'en-US,en;q=0.8'} })
     client.request(query, variables).then(function(data) {
       callback(data)
     }) 
 }
 
-
+exports.updateFundTag = function(fund,callback) {
+  Log.success('Start api: updateFundTag, get code: ' + fund)
+    const query = gql`
+    mutation($code:String!,$tag:String!){
+      updateFundTag(code:$code,tag:$tag){
+        name
+      }
+    }
+    `
+    const variables = {
+            "code":fund.code ,
+            "tag":fund.type,
+        };
+    const client = new GraphQLClient(mongDBUrl, { 
+      headers: {
+        'Connection': 'keep-alive',
+        'Accept-Encoding': '',
+        'Accept-Language': 'en-US,en;q=0.8'} })
+    client.request(query, variables).then(function(data) {
+      callback(data)
+    }) 
+}
 exports.queryFundIncrease = function(code,callback) {
 
     const query = gql`
@@ -61,15 +88,18 @@ exports.queryFundIncrease = function(code,callback) {
         code
         lastUpdate
         dayOfGrowth
-        type
-        
+        tags
       }
     }
     `
     const variables = {
       "code": code,
     };
-    const client = new GraphQLClient(mongDBUrl, { headers: {} })
+    const client = new GraphQLClient(mongDBUrl, { 
+      headers: {
+        'Connection': 'keep-alive',
+        'Accept-Encoding': '',
+        'Accept-Language': 'en-US,en;q=0.8'} })
     client.request(query, variables).then(function(data) {
       callback(data)
      })
@@ -78,18 +108,16 @@ exports.queryFundIncrease = function(code,callback) {
 exports.createFundIncrease = function(fund,callback) {
   Log.success('Start api:createFundIncrease' + fund)
     const query = gql`
-    mutation($code:String!,$name:String,$type:String,$input:FundIncreaseInput){
-      createFundIncrease(code:$code, name:$name,type:$type, input:$input){
+    mutation($code:String!,$name:String,$input:FundIncreaseInput){
+      createFundIncrease(code:$code, name:$name, input:$input){
         name
         code
-        type
       }
     }
     `
     const variables = {
       "code": fund.code,
       "name": fund.name,
-      "type": fund.type,
       "input": {
         "lastUpdate": fund.lastUpdate,
         "unitNetWorth": fund.unitNetWorth,
@@ -105,7 +133,11 @@ exports.createFundIncrease = function(fund,callback) {
         "serviceCharge": fund.serviceCharge
       }
     };
-    const client = new GraphQLClient(mongDBUrl, { headers: {} })
+    const client = new GraphQLClient(mongDBUrl, { 
+      headers: {
+        'Connection': 'keep-alive',
+        'Accept-Encoding': '',
+        'Accept-Language': 'en-US,en;q=0.8'} })
     client.request(query, variables).then(function(data) {
       callback(data)
     })
@@ -142,9 +174,37 @@ exports.updateFundIncrease = function(fund,callback) {
         "serviceCharge": fund.serviceCharge
       }
     };
-    const client = new GraphQLClient(mongDBUrl, { headers: {} })
+    const client = new GraphQLClient(mongDBUrl, { 
+      headers: {
+        'Connection': 'keep-alive',
+        'Accept-Encoding': '',
+        'Accept-Language': 'en-US,en;q=0.8'} })
     client.request(query, variables).then(function(data) {
       callback(data)
     }
     )
+}
+
+
+exports.updateFundIncreaseTag = function(fund,callback) {
+  Log.success('Start api: updateFundIncreaseTag, get code: ' + fund)
+    const query = gql`
+    mutation($code:String!,$tag:String!){
+      updateFundIncreaseTag(code:$code,tag:$tag){
+        name
+      }
+    }
+    `
+    const variables = {
+            "code":fund.code ,
+            "tag":fund.type,
+        };
+    const client = new GraphQLClient(mongDBUrl, { 
+      headers: {
+        'Connection': 'keep-alive',
+        'Accept-Encoding': '',
+        'Accept-Language': 'en-US,en;q=0.8'} })
+    client.request(query, variables).then(function(data) {
+      callback(data)
+    }) 
 }

@@ -30,8 +30,7 @@ module.exports = buildSchema(`
 
   input FundInput {
     name: String,
-    code: String,
-    tag: String
+    code: String
   }
 
   input FundIncreaseInput{
@@ -63,7 +62,7 @@ module.exports = buildSchema(`
     deleteFund(id: ID!): Fund,
     updateFundTag(code:String!,tag:String!):Fund,
     
-    createFundIncrease(code: String!, name:String, type:String, input:FundIncreaseInput): FundIncrease,
+    createFundIncrease(code: String!, name:String, input:FundIncreaseInput): FundIncrease,
     updateFundIncrease(code: String!, update: FundIncreaseInput): FundIncrease,
     updateFundIncreaseTag(code:String!,tag:String!):FundIncrease,
     deleteFundIncrease(code: String!): FundIncrease,
