@@ -4,16 +4,17 @@ const DB = require('../services/local-file');
 const Log = require('../utils/log');
 const Mongo = require('../services/mongo-api')
 var async = require("async");
-
-
-function parseData(data,type) {
+const DateFormat = require('dateformat');
+var today = DateFormat(new Date(), 'yyyy/mm/dd')
+function parseData(data,task) {
   const jsonObj = parseJsonObject(data);
 
   const fundItems = [];
   for (const item of jsonObj['datas']) {
     let fundItem = {};
     const fundArray = item.split('|');
-    fundItem['type'] = type ;
+    fundItem['type'] = task.type ;
+    fundItem['lastUpdate'] = today ;
     fundItem['code'] = fundArray[0];
     fundItem['name'] = fundArray[1];
     fundItem['day'] = fundArray[3];
@@ -45,14 +46,16 @@ function parseJsonObject(data) {
 
 
 // 开始
-exports.start = function start(data, type, filepath) {
+exports.start = function start(data, task) {
+
+  // res.options.task.type,res.options.task.storePath
   Log.success('Succeed start FundIncrease work ')
 
   // 1) 将采集数据格式化成 Json
-  const funds = parseData(data,type); // 输入: 抓取页面的原始 html,输出: 基金列表
+  const funds = parseData(data,task); // 输入: 抓取页面的原始 html,输出: 基金列表
 
   // 2) 将数据以 csv格式保存本地
-  DB.write(filepath, funds) // 存储模块,这一次先改成写本地
+  DB.write(task.filepath, funds) // 存储模块,这一次先改成写本地
 
   // 3) 通过 api 服务,将数据保存到 mongo 服务器
   const taskLength = funds.length
@@ -72,20 +75,16 @@ exports.start = function start(data, type, filepath) {
         waitListLength++
         // return fund;
         callback(null, fund)
+        // console.log(resp.fundByCode)
+        
       } else {
         // 如果存在,就更新基金记录
         Log.success('Start api: updateFundIncrease, get code: ' + fund)
         Mongo.updateFundIncrease(fund, function (resp) {
           Log.success('Finish updateFundIncrease task: ' + resp.updateFundIncrease)
+          // console.log(resp.fundByCode)
+          
         })
-        // Log.info('Start create updateFundTag:  ' + fund.code)
-        // Mongo.updateFundTag(fund, function (resp) {
-        //   Log.info('Finish create updateFundTag:  ' + resp.tags)
-        // })
-        // Log.info('Start create updateFundIncreaseTag:  ' + fund.code)
-        // Mongo.updateFundIncreaseTag(fund, function (resp) {
-        //   Log.info('Finish updateFundIncreaseTag:  ' + resp.tags)
-        // })
         callback(null, null)
       }
     })

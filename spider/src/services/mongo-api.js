@@ -1,6 +1,6 @@
 const { request, gql, GraphQLClient }  = require('graphql-request');
-// const mongDBUrl = 'http://192.168.0.100:2000/graphql';
-const mongDBUrl = 'http://127.0.0.1:4000/graphql';
+const mongDBUrl = 'http://192.168.0.100:2000/graphql';
+// const mongDBUrl = 'http://127.0.0.1:4000/graphql';
 const Log = require('../utils/log');
 
 exports.queryFund = function(code, callback) {
@@ -106,7 +106,7 @@ exports.queryFundIncrease = function(code,callback) {
 }
 
 exports.createFundIncrease = function(fund,callback) {
-  Log.success('Start api:createFundIncrease' + fund)
+  Log.success('Start api:createFundIncrease:' + fund.code)
     const query = gql`
     mutation($code:String!,$name:String,$input:FundIncreaseInput){
       createFundIncrease(code:$code, name:$name, input:$input){
@@ -159,7 +159,7 @@ exports.updateFundIncrease = function(fund,callback) {
     `
     const variables = {
       "code": fund.code,
-      "input": {
+      "update": {
         "lastUpdate": fund.lastUpdate,
         "unitNetWorth": fund.unitNetWorth,
         "dayOfGrowth": fund.dayOfGrowth,

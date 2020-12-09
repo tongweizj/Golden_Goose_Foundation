@@ -120,7 +120,7 @@ class Scheduler {
 
                 } else {
                     Log.success('Succeed to crawl ' + res.options.uri)
-                    FundIncrease.start(res.body,res.options.task.type,res.options.task.storePath);
+                    FundIncrease.start(res.body,res.options.task);
 
                     // const filepath = res.options.task.storePath; // 存储路径
                     // const funds = FundParser.parseRank(res.body); // 输入: 抓取页面的原始 html,输出: 基金列表

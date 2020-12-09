@@ -16,7 +16,7 @@
           <div class="card">
             <div class="card-header">
               <h5 class="card-title">说明</h5>
-              <h6 class="card-subtitle text-muted">当前显示最近 1 年业绩前 100 名.</h6>
+              <h6 class="card-subtitle text-muted">当前显示最近 1个月业绩的前 100 名.</h6>
             </div>
             <div class="table-responsive">
               <table class="table mb-0">
@@ -29,6 +29,7 @@
                     <th scope="col">单位净值</th>
                     <th scope="col">日增长率</th>
                     <th scope="col">最近1周</th>
+                    <th scope="col">近1月</th>
                     <th scope="col">近3月</th>
                     <th scope="col">近6月</th>
                     <th scope="col">近1年</th>
@@ -46,9 +47,10 @@
                     <td><%= fund.name %> </td>
                     <td><%= fund.code %></td>
                     <td><%= fund.lastUpdate %></td>
-                    <td><%= fund.unitNetWorth %>%</td>
+                    <td><%= fund.unitNetWorth %></td>
                     <td><%= fund.dayOfGrowth %>%</td>
                     <td><%= fund.recent1Week %>%</td>
+                    <td><%= fund.recent1Month %>%</td>
                     <td><%= fund.recent3Month %>%</td>
                     <td><%= fund.recent6Month %>%</td>
                     <td><%= fund.recent1Year %>%</td>
@@ -59,7 +61,7 @@
                   </tr>
                   <% } %>
                   <% } else { %>
-                    <h1>No Products Found!</h1>
+                    <h1>暂时没有基金!</h1>
                   <% } %>
                 </tbody>
               </table>
