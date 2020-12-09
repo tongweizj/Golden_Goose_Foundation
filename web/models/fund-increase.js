@@ -8,6 +8,7 @@ const fundIncreaseSchema = new Schema({
   unitNetWorth:String,
   dayOfGrowth:String,
   recent1Week:String,
+  recent1Month:String,
   recent3Month:String,
   recent6Month:String,
   recent1Year:String,
