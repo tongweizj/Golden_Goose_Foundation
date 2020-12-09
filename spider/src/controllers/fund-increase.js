@@ -13,11 +13,12 @@ function parseData(data,task) {
   for (const item of jsonObj['datas']) {
     let fundItem = {};
     const fundArray = item.split('|');
-    fundItem['type'] = task.type ;
-    fundItem['lastUpdate'] = today ;
+    
+    
     fundItem['code'] = fundArray[0];
     fundItem['name'] = fundArray[1];
-    fundItem['day'] = fundArray[3];
+    fundItem['type'] = task.type ;
+    fundItem['lastUpdate'] = today ;
     fundItem['unitNetWorth'] = fundArray[4];
     fundItem['dayOfGrowth'] = fundArray[5];
     fundItem['recent1Week'] = fundArray[6];

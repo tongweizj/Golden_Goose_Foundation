@@ -38,14 +38,11 @@ module.exports = {
     }
   },
   createFund: async args => {
-    const { name, code,type} = args.fund
+    const { name, code} = args.fund
     try {
-      console.log('name')
-     console.log(name)
       const fund = new Fund({
         name:name, 
         code:code,
-        type:type,
       })
       // const newBook = await book.save()
       return fund.save(fund)
@@ -115,8 +112,7 @@ module.exports = {
     const input= args.input
     input["name"] = args.name
     input["code"] = args.code
-    input["type"] = args.type
-    console.log(input)
+    // console.log(input)
     try {
       const fundIncrease = new FundIncrease(input)
       return fundIncrease.save(fundIncrease)
