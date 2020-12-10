@@ -1,9 +1,9 @@
-
-
 const Log = require('../utils/log')
 const { Parser } = require('json2csv');
 var iconv = require('iconv-lite');
 const fs = require('fs-extra')
+
+
 function getGitHubPersonalAccessToken() {
     return process.env.TOKEN;
 }
@@ -140,7 +140,8 @@ class DBTask {
         // console.log(csv);
 
         /// 数据编码调整
-        let csvBuf = new Buffer(csv);
+        // let csvBuf = new Buffer(csv);
+        let csvBuf = Buffer.from(csv)  
 
         var str = iconv.decode(csvBuf, "utf-8");
         var str2 = iconv.encode(str, "gbk");

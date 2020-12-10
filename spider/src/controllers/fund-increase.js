@@ -6,6 +6,7 @@ const Mongo = require('../services/mongo-api')
 var async = require("async");
 const DateFormat = require('dateformat');
 var today = DateFormat(new Date(), 'yyyy/mm/dd')
+
 function parseData(data,task) {
   const jsonObj = parseJsonObject(data);
 
@@ -13,8 +14,7 @@ function parseData(data,task) {
   for (const item of jsonObj['datas']) {
     let fundItem = {};
     const fundArray = item.split('|');
-    
-    
+  
     fundItem['code'] = fundArray[0];
     fundItem['name'] = fundArray[1];
     fundItem['type'] = task.type ;
@@ -46,26 +46,15 @@ function parseJsonObject(data) {
 };
 
 
-// 开始
-exports.start = function start(data, task) {
-
-  // res.options.task.type,res.options.task.storePath
-  Log.success('Succeed start FundIncrease work ')
-
-  // 1) 将采集数据格式化成 Json
-  const funds = parseData(data,task); // 输入: 抓取页面的原始 html,输出: 基金列表
-
-  // 2) 将数据以 csv格式保存本地
-  DB.write(task.filepath, funds) // 存储模块,这一次先改成写本地
-
-  // 3) 通过 api 服务,将数据保存到 mongo 服务器
+/// 将数据上传Mongo 服务器
+function saveToMongo(funds) {
   const taskLength = funds.length
   var taskTimes = 1
   var waitListTimes = 1
   var createFundList
   var waitListLength = 0
   async.mapLimit(funds, 1, function (fund, callback) {
-    Log.info('Start queryFund task:' + taskTimes + '/' + taskLength)
+    Log.info('Start queryFund task2:' + taskTimes + '/' + taskLength)
     taskTimes += 1
     // 1) 检查基金是否存在
     Log.info('Start queryFund task data:' + fund.code)
@@ -115,4 +104,33 @@ exports.start = function start(data, task) {
       }
     })
   })
+}
+
+// 开始
+exports.start = function start(data) {
+  const allFunds = [];
+  var times = 1;
+  Log.success('Succeed start FundIncrease work: ' + data.length)
+  if(data.length == 6){
+  data.forEach(function(item) {
+    
+    // 1) 将采集数据格式化成 Json
+    const funds = parseData(item.data, item.task); // 输入: 抓取页面的原始 html,输出: 基金列表
+    console.log(funds.length);
+    console.log(funds[0]);
+    console.log(item.task)
+    // 2) 保存本地 
+    DB.write(item.task.storePath, funds)
+    // 3) 添加到allFunds,统一做上传 mongdo 服务器的操作 
+    // allFunds.push(funds);
+    allFunds.push.apply(allFunds,funds);
+  })
+  Log.success('End 数据本地存储,次数= ' + times)
+  console.log(allFunds.length);
+  console.log(allFunds[0]);
+  times ++
+  // res.options.task.type,res.options.task.storePath
+  // 3) 通过 api 服务,将数据保存到 mongo 服务器
+  saveToMongo(allFunds);
+}
 }

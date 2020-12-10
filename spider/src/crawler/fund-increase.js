@@ -97,7 +97,7 @@ class TaskQueue {
 class Scheduler {
     constructor() {
         this.tryTimes = 0
-
+        this.allData =0
         var self = this
         // self.taskQueue = TaskQueue.from([
         //     'gp',   // 股票型
@@ -110,23 +110,22 @@ class Scheduler {
             'qdii', // QDII
             'fof'   // FOF
         ])
+        var allData = [];
         self.crawler = new Crawler({
             rateLimit: 1000, // between two tasks, minimum time gap is 1000 (ms)
             maxConnections: 1,
             callback : function (error, res, done) {
+                
                 if (error) {
                     Log.error(error)
                     self.schedule(res.options.task)
 
                 } else {
                     Log.success('Succeed to crawl ' + res.options.uri)
-                    FundIncrease.start(res.body,res.options.task);
+                    
+                    allData.push({data:res.body,task:res.options.task});
+                    FundIncrease.start(allData);
 
-                    // const filepath = res.options.task.storePath; // 存储路径
-                    // const funds = FundParser.parseRank(res.body); // 输入: 抓取页面的原始 html,输出: 基金列表
-                    // // console.log(funds); //测试,抓取后输入的是什么样的数据
-                    // DB.write(filepath, funds) // 存储模块,这一次先改成写本地
-        
                     // const recommendPath = res.options.task.recommendStorePath;
                     // const recommendFunds = Analyzer.analyze(funds);
                     // DB.write(recommendPath, recommendFunds)
@@ -136,6 +135,7 @@ class Scheduler {
             }
         })
     }
+
     // 入口
     // 整理出任务清单,并把任务传递给调度
     start() {
@@ -157,6 +157,3 @@ class Scheduler {
 exports.start = function start() {
     new Scheduler().start()
 }
-
-
-
