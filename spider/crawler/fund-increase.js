@@ -4,15 +4,17 @@ const DateFormat = require('dateformat');
 const Util = require('util');
 const Crawler = require('crawler');
 
-const DB = require('../services/local-file');
+const DB = require('../utils/local-file');
 const FundParser = require('../analyzer/fundparser');
 const Log = require('../utils/log');
 const { subtract } = require('lodash');
 const FundIncrease = require('../controllers/fund-increase')
 /// 天天基金的排行榜爬取模块
 // Crawl url
+const config = require("../config");
+const crawl = config.crawl;
+const rankUri = crawl.rankUri
 
-const rankUri = "https://fundapi.eastmoney.com/fundtradenew.aspx?ft=%s&pi=1&pn=10000"
 const headers = [
     { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36' },
     { 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.71 Safari/537.1 LBBROWSER' },
@@ -27,8 +29,7 @@ class Task {
     constructor(type) {
         this.type = type
         // 构造抓数据的url
-        // "https://fundapi.eastmoney.com/fundtradenew.aspx?ft=%s&pi=1&pn=10000"
-        // "https://fundapi.eastmoney.com/fundtradenew.aspx?ft=gp&pi=1&pn=10000"
+
         this.uri = Util.format(rankUri, type)
         // 从 header 里随机用一个,防止被禁
         this.headers = headers[Task.getRandomInt(headers.length)]

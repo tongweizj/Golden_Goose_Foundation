@@ -1,4 +1,4 @@
-const Log = require('../utils/log')
+const Log = require('./log')
 const { Parser } = require('json2csv');
 var iconv = require('iconv-lite');
 const fs = require('fs-extra')

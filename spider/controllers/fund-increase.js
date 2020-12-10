@@ -1,8 +1,10 @@
 'use strict';
 
-const DB = require('../services/local-file');
+const DB = require('../utils/local-file');
 const Log = require('../utils/log');
-const Mongo = require('../services/mongo-api')
+// const Mongo = require('../models/mongo-api')
+const FundDB = require('../models/fund')
+const FundIncreaseDB = require('../models/fund-increase')
 var async = require("async");
 const DateFormat = require('dateformat');
 var today = DateFormat(new Date(), 'yyyy/mm/dd')
@@ -58,7 +60,7 @@ function saveToMongo(funds) {
     taskTimes += 1
     // 1) 检查基金是否存在
     Log.info('Start queryFund task data:' + fund.code)
-    Mongo.queryFund(fund.code, function (resp) {
+    FundDB.queryFund(fund.code, function (resp) {
       Log.info('Finish queryFund task ' + taskTimes + 'data:' + resp.fundByCode)
       // 如果不存在,就添加到创建的 waitlist
       if (resp.fundByCode == null) {
@@ -70,7 +72,7 @@ function saveToMongo(funds) {
       } else {
         // 如果存在,就更新基金记录
         Log.success('Start api: updateFundIncrease, get code: ' + fund)
-        Mongo.updateFundIncrease(fund, function (resp) {
+        FundIncreaseDB.updateFundIncrease(fund, function (resp) {
           Log.success('Finish updateFundIncrease task: ' + resp.updateFundIncrease)
           // console.log(resp.fundByCode)
           
@@ -88,17 +90,17 @@ function saveToMongo(funds) {
       if (fund != null) {
         Log.info('Start waitList task:' + waitListTimes + '/' + waitListLength)
         // 创建新基金
-        Mongo.createFund(fund, function (resp) {
+        FundDB.createFund(fund, function (resp) {
           Log.info('Finish create Fund:  ' + resp.createFund)
         })
-        Mongo.updateFundTag(fund, function (resp) {
+        FundDB.updateFundTag(fund, function (resp) {
           Log.info('Finish create Fund:  ' + resp.tags)
         })
         // 创建新基金涨幅记录
-        Mongo.createFundIncrease(fund, function (resp) {
+        FundIncreaseDB.createFundIncrease(fund, function (resp) {
           Log.info('Finish createFundIncrease:  ' + resp.createFundIncrease)
         })
-        Mongo.updateFundIncreaseTag(fund, function (resp) {
+        FundIncreaseDB.updateFundIncreaseTag(fund, function (resp) {
           Log.info('Finish createFundIncrease:  ' + resp.tags)
         })
       }
