@@ -21,5 +21,16 @@
     "iconv-lite": "^0.6.2",
     "json2csv": "^5.0.5"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^7.15.0"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false,
+    "stylelintIntegration": true,
+    "eslintIntegration": true,
+    "insertPragma": false,
+    "trailingComma": "none",
+    "arrowParens": "avoid"
+  }
 }

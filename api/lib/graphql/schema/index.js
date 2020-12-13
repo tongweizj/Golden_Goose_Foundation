@@ -1,6 +1,4 @@
-const {
-  buildSchema
-} = require("graphql")
+const { buildSchema } = require('graphql');
 
 module.exports = buildSchema(`
   type Fund {
@@ -74,4 +72,4 @@ module.exports = buildSchema(`
     query: Query
     mutation: Mutation
   }
-`)
+`);

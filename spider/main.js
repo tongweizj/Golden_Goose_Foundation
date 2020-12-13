@@ -1,10 +1,10 @@
-'use strict';
+'use strict'
 
-const FundIncrease = require('./crawler/fund-increase');
+const FundIncrease = require('./crawler/fund-increase')
 
 /// 调度器
 /// 1) spider: 市场已有基金的涨幅情况
-FundIncrease.start();
+FundIncrease.start()
 
 /// TODO 2) spider: 已有基金的基本信息
 

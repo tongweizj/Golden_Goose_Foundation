@@ -1,156 +1,146 @@
-const Fund = require("../../models/fund")
-const FundIncrease = require("../../models/fund-increase")
+const Fund = require('../../models/fund');
+const FundIncrease = require('../../models/fund-increase');
 
 module.exports = {
-   fund: ({id}) => {
+  fund: ({ id }) => {
     try {
-      console.log(id)
+      console.log(id);
       // const bookFetched = await Book.find()
       // var query = { jd_id: new ObjectId(jd.id) };
       // var condition = id ? { id: id} : {};
 
-      return Fund.findById(id)
+      return Fund.findById(id);
     } catch (error) {
-      throw error
+      throw error;
     }
   },
-  fundByCode: ({code}) => {
+  fundByCode: ({ code }) => {
     try {
-      console.log(code)
+      console.log(code);
       // console.log(Fund.find({code:code}))
       // const bookFetched = await Book.find()
       // var query = { jd_id: new ObjectId(jd.id) };
       // var condition = id ? { id: id} : {};
-      return Fund.findOne({"code":code})
-      
+      return Fund.findOne({ code: code });
     } catch (error) {
-      throw error
+      throw error;
     }
-  },  
-  funds: ()  => {
+  },
+  funds: () => {
     try {
       // const bookFetched = await Book.find()
       // var condition = name ? { name: name} : {};
-      return Fund.find()
-      
+      return Fund.find();
     } catch (error) {
-      throw error
+      throw error;
     }
   },
-  createFund: async args => {
-    const { name, code} = args.fund
+  createFund: async (args) => {
+    const { name, code } = args.fund;
     try {
       const fund = new Fund({
-        name:name, 
-        code:code,
-      })
+        name: name,
+        code: code,
+      });
       // const newBook = await book.save()
-      return fund.save(fund)
+      return fund.save(fund);
     } catch (error) {
-      throw error
+      throw error;
     }
   },
-  updateFund: ({id, input}) => {
+  updateFund: ({ id, input }) => {
     try {
       // 输入数据检验
-      console.log(id)
-      return Fund.findByIdAndUpdate(id, input, { useFindAndModify: false })
+      console.log(id);
+      return Fund.findByIdAndUpdate(id, input, { useFindAndModify: false });
     } catch (error) {
-      throw error
+      throw error;
     }
   },
 
-  updateFundTag:({code, tag}) =>{
+  updateFundTag: ({ code, tag }) => {
     try {
       // 输入数据检验
-      console.log(code)
-      console.log(tag)
+      console.log(code);
+      console.log(tag);
       // Fund.findOneAndUpdate({code:code},{$addToSet:{tags:tag}},{new: true },function(err,docs){
       //   if(err) console.log(err);
       //   // console.log('更改成功'+String(docs))
       //   console.log('更改成功:' + JSON.stringify(docs, null, 4))
       //   return docs
       // })
-      return Fund.findOneAndUpdate({code:code},{$addToSet:{tags:tag}},
-        { lean:true,new:true ,useFindAndModify: false });
+      return Fund.findOneAndUpdate({ code: code }, { $addToSet: { tags: tag } }, { lean: true, new: true, useFindAndModify: false });
     } catch (error) {
-      throw error
+      throw error;
     }
   },
-  deleteFund: ({id}) => {
+  deleteFund: ({ id }) => {
     // 输入数据检验
-       console.log(id)
-       return Fund.findByIdAndRemove(id, { useFindAndModify: false })
-   },
+    console.log(id);
+    return Fund.findByIdAndRemove(id, { useFindAndModify: false });
+  },
 
-   fundIncrease: ({code}) => {
+  fundIncrease: ({ code }) => {
     try {
-      console.log(code)
+      console.log(code);
       // console.log(Fund.find({code:code}))
       // const bookFetched = await Book.find()
       // var query = { jd_id: new ObjectId(jd.id) };
       // var condition = id ? { id: id} : {};
-      return FundIncrease.findOne({"code":code})
-      
+      return FundIncrease.findOne({ code: code });
     } catch (error) {
-      throw error
+      throw error;
     }
-  },  
-  fundsIncrease: ()  => {
+  },
+  fundsIncrease: () => {
     try {
       // const bookFetched = await Book.find()
       // var condition = name ? { name: name} : {};
-      return FundIncrease.find()
-      
+      return FundIncrease.find();
     } catch (error) {
-      throw error
+      throw error;
     }
   },
 
-  createFundIncrease: async args => {
-
-    const input= args.input
-    input["name"] = args.name
-    input["code"] = args.code
+  createFundIncrease: async (args) => {
+    const input = args.input;
+    input['name'] = args.name;
+    input['code'] = args.code;
     // console.log(input)
     try {
-      const fundIncrease = new FundIncrease(input)
-      return fundIncrease.save(fundIncrease)
+      const fundIncrease = new FundIncrease(input);
+      return fundIncrease.save(fundIncrease);
     } catch (error) {
-      throw error
+      throw error;
     }
   },
 
-  updateFundIncrease: ({code, update}) => {
+  updateFundIncrease: ({ code, update }) => {
     try {
       // 输入数据检验
-      console.log(code)
+      console.log(code);
       const filter = { code: code };
-      return FundIncrease.findOneAndUpdate(filter, update,
-       { lean:true,new:true ,useFindAndModify: false }
-      )
+      return FundIncrease.findOneAndUpdate(filter, update, { lean: true, new: true, useFindAndModify: false });
     } catch (error) {
-      throw error
+      throw error;
     }
   },
 
-
-  updateFundIncreaseTag:({code, tag}) =>{
+  updateFundIncreaseTag: ({ code, tag }) => {
     try {
       // 输入数据检验
-      console.log(code)
-      console.log(tag)
+      console.log(code);
+      console.log(tag);
       const filter = { code: code };
-      return FundIncrease.findOneAndUpdate(filter,{$addToSet:{tags:tag}},
-        { lean:true,new:true ,useFindAndModify: false });
+      return FundIncrease.findOneAndUpdate(filter, { $addToSet: { tags: tag } }, { lean: true, new: true, useFindAndModify: false });
     } catch (error) {
-      throw error
+      throw error;
     }
   },
-  deleteFundIncrease: ({code}) => {
+  deleteFundIncrease: ({ code }) => {
     // 输入数据检验
-       console.log(code)
-       const filter = { code: code };
-       return FundIncrease.findOneAndRemove(filter)
-   },
-}
+    console.log(code);
+    const filter = { code: code };
+    return FundIncrease.findOneAndRemove(filter);
+  },
+};
