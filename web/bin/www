@@ -13,21 +13,21 @@ var http = require('http');
  * MongoDB setting.
  */
 const mongoose = require('mongoose');
-const config = require("./config");
+const config = require('./config');
 const db = config.database;
 
 mongoose.connect(db.url, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
 
 mongoose.connection
-.on('open', () => {
-console.log('Mongoose connection open');
-})
-.on('error', (err) => {
-console.log(`Connection error: ${err.message}`);
-});
+  .on('open', () => {
+    console.log('Mongoose connection open');
+  })
+  .on('error', (err) => {
+    console.log(`Connection error: ${err.message}`);
+  });
 /**
  * Get port from environment and store in Express.
  */
@@ -78,9 +78,7 @@ function onError(error) {
     throw error;
   }
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -103,8 +101,6 @@ function onError(error) {
 
 function onListening() {
   var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
+  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
