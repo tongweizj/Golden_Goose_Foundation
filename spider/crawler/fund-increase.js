@@ -4,11 +4,13 @@ const DateFormat = require('dateformat')
 const Util = require('util')
 const Crawler = require('crawler')
 
-// const DB = require('../utils/local-file')
-// const FundParser = require('../analyzer/fundparser')
+const DB = require('../utils/local-file')
+const FundParser = require('../analyzer/fundparser')
+const Analyzer = require('../analyzer/fundanalyzer')
 const Log = require('../utils/log')
 // const { subtract } = require('lodash')
 const FundIncrease = require('../controllers/fund-increase')
+const FundIncreaseDB = require('../models/fund-increase')
 /// 天天基金的排行榜爬取模块
 // Crawl url
 const config = require('../config')
@@ -123,7 +125,7 @@ class Scheduler {
     this.allData = 0
     var self = this
     // self.taskQueue = TaskQueue.from([
-    //     'gp',   // 股票型
+    //   'gp' // 股票型
     // ])
     self.taskQueue = TaskQueue.from([
       'gp', // 股票型
@@ -146,9 +148,28 @@ class Scheduler {
 
           allData.push({ data: res.body, task: res.options.task })
           FundIncrease.start(allData)
+          const funds = FundParser.parseRank(res.body)
+          const recommendFunds = Analyzer.analyze(funds)
+          console.log(recommendFunds)
+          recommendFunds.forEach(fund => {
+            let newFund = {
+              code: fund.code,
+              type: '4433'
+            }
+            FundIncreaseDB.updateFundIncreaseTag(newFund, function (resp) {
+              Log.info('Finish createFundIncrease:  ' + resp.tags)
+            })
+          })
 
-          // const recommendPath = res.options.task.recommendStorePath;
-          // const recommendFunds = Analyzer.analyze(funds);
+          /// 保存到本地
+          // const filepath = res.options.task.storePath
+          // const funds = FundParser.parseRank(res.body)
+
+          // DB.write(filepath, funds)
+
+          // const recommendPath = res.options.task.recommendStorePath
+          // const recommendFunds = Analyzer.analyze(funds)
+
           // DB.write(recommendPath, recommendFunds)
         }
 

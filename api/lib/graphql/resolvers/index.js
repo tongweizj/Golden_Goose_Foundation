@@ -101,7 +101,15 @@ module.exports = {
       throw error;
     }
   },
-
+  fundsIncreaseByTag: ({ tag }) => {
+    try {
+      // const bookFetched = await Book.find()
+      // var condition = name ? { name: name} : {};
+      return FundIncrease.find({ tags: tag });
+    } catch (error) {
+      throw error;
+    }
+  },
   createFundIncrease: async (args) => {
     const input = args.input;
     input['name'] = args.name;

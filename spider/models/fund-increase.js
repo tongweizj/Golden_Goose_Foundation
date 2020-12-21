@@ -3,6 +3,43 @@ const api = config.api
 const { request, gql, GraphQLClient } = require('graphql-request')
 const Log = require('../utils/log')
 
+exports.queryAllFundIncreaseByTag = function (tag, callback) {
+  const query = gql`
+    query($tag: String!) {
+      fundsIncreaseByTag(tag: $tag) {
+        name
+        code
+        tags
+        unitNetWorth
+        dayOfGrowth
+        recent1Week
+        recent1Month
+        recent3Month
+        recent6Month
+        recent1Year
+        recent2Year
+        recent3Year
+        fromThisYear
+        fromBuild
+        serviceCharge
+      }
+    }
+  `
+  const variables = {
+    tag: tag
+  }
+  const client = new GraphQLClient(api.db, {
+    headers: {
+      Connection: 'keep-alive',
+      'Accept-Encoding': '',
+      'Accept-Language': 'en-US,en;q=0.8'
+    }
+  })
+  client.request(query, variables).then(function (data) {
+    callback(data)
+  })
+}
+
 exports.queryFundIncrease = function (code, callback) {
   const query = gql`
     query($code: String!) {

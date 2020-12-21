@@ -54,6 +54,7 @@ module.exports = buildSchema(`
     funds: [Fund],
     fundIncrease(code:String!): FundIncrease,
     fundsIncrease: [FundIncrease],
+    fundsIncreaseByTag(tag:String!): [FundIncrease],
   }
 
   type Mutation {
