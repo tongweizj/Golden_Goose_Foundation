@@ -1,10 +1,10 @@
 const { request, gql, GraphQLClient } = require('graphql-request')
+
+const logger = require('../utils/log')
 const config = require('../config')
-const api = config.api
-const Log = require('../utils/log')
+const endpoint = config.api.testDb
 
 exports.queryFund = function (code, callback) {
-  // Log.success('Succeed start mongo api, get code: ' + code)
   const query = gql`
     query($code: String!) {
       fundByCode(code: $code) {
@@ -19,7 +19,7 @@ exports.queryFund = function (code, callback) {
     code: code
   }
   // console.log(variables);
-  const client = new GraphQLClient(api.db, {
+  const client = new GraphQLClient(endpoint, {
     headers: {
       Connection: 'keep-alive',
       'Accept-Encoding': '',
@@ -32,7 +32,10 @@ exports.queryFund = function (code, callback) {
 }
 
 exports.createFund = function (fund, callback) {
-  Log.success('Start api: createFund, get code: ' + fund)
+  logger.log('info', 'Start api: createFund, get code:' + fund, {
+    label: 'setp1'
+  })
+
   const query = gql`
     mutation($fund: FundInput) {
       createFund(fund: $fund) {
@@ -47,7 +50,7 @@ exports.createFund = function (fund, callback) {
       code: fund.code
     }
   }
-  const client = new GraphQLClient(api.db, {
+  const client = new GraphQLClient(endpoint, {
     headers: {
       Connection: 'keep-alive',
       'Accept-Encoding': '',
@@ -60,7 +63,10 @@ exports.createFund = function (fund, callback) {
 }
 
 exports.updateFundTag = function (fund, callback) {
-  Log.success('Start api: updateFundTag, get code: ' + fund)
+  logger.log('info', 'Start api: updateFundTag, get code:' + fund, {
+    label: 'setp1'
+  })
+
   const query = gql`
     mutation($code: String!, $tag: String!) {
       updateFundTag(code: $code, tag: $tag) {
@@ -72,7 +78,7 @@ exports.updateFundTag = function (fund, callback) {
     code: fund.code,
     tag: fund.type
   }
-  const client = new GraphQLClient(api.db, {
+  const client = new GraphQLClient(endpoint, {
     headers: {
       Connection: 'keep-alive',
       'Accept-Encoding': '',

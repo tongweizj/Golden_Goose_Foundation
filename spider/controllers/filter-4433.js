@@ -1,5 +1,5 @@
 'use strict'
-const FundIncreaseDB = require('../models/fund-increase')
+const FundIncreaseDB = require('../graphql/fund-increase')
 
 function analyze(funds) {
   let recent3Month = funds.sort(sortFundByRecent3Month)
@@ -59,7 +59,7 @@ function analyze(funds) {
 
   return intersect
 }
-exports.analyze = analyze
+// exports.analyze = analyze
 
 function sortFundByRecent3Month(fund1, fund2) {
   return sortFund(fund1, fund2, 'recent3Month')
@@ -91,10 +91,36 @@ function sortFund(fund1, fund2, key) {
   return result
 }
 
+// exports.start = function () {
+//   FundIncreaseDB.queryAllFundIncreaseByTag('zs', function (resp) {
+//     // console.log(resp.fundsIncreaseByTag.length)
+//     console.log('Session: %j', analyze(resp.fundsIncreaseByTag))
+//     return analyze(resp.fundsIncreaseByTag)
+//   })
+// }
+
 exports.start = function () {
-  FundIncreaseDB.queryAllFundIncreaseByTag('zs', function (resp) {
-    // console.log(resp.fundsIncreaseByTag.length)
-    console.log('Session: %j', analyze(resp.fundsIncreaseByTag))
-    return analyze(resp.fundsIncreaseByTag)
+  // 1. 获取全部基金
+
+  FundIncreaseDB.queryAllFundIncrease(function (resp) {
+    // console.log('fundsIncrease:%j', resp.fundsIncrease[1].name)
+    const funds = resp.fundsIncrease
+    console.log('fundsIncrease: ', funds.length)
+    // const funds = JSON.parse(resp.fundsIncrease)
+    // console.log('fundsIncrease: %j', funds.length)
+    // 2. 将基金数据从到分析程序中过滤
+    const recommendFunds = analyze(funds)
+    console.log('recommendFunds: ' + recommendFunds.length)
+    // 3. 将 4433 基金打标签
+    recommendFunds.forEach(fund => {
+      let newFund = {
+        code: fund.code,
+        type: '4433'
+      }
+      FundIncreaseDB.updateFundIncreaseTag(newFund, function (resp) {
+        // Log.info('Finish createFundIncrease:  ' + resp.tags)
+      })
+    })
+    // return analyze(resp.fundsIncrease)
   })
 }

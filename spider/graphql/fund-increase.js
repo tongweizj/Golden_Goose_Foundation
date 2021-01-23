@@ -1,7 +1,42 @@
-const config = require('../config')
-const api = config.api
 const { request, gql, GraphQLClient } = require('graphql-request')
-const Log = require('../utils/log')
+
+const config = require('../config')
+const endpoint = config.api.testDb
+const logger = require('../utils/log')
+exports.queryAllFundIncrease = function (callback) {
+  const query = gql`
+    query {
+      fundsIncrease {
+        name
+        code
+        tags
+        unitNetWorth
+        dayOfGrowth
+        recent1Week
+        recent1Month
+        recent3Month
+        recent6Month
+        recent1Year
+        recent2Year
+        recent3Year
+        fromThisYear
+        fromBuild
+        serviceCharge
+      }
+    }
+  `
+
+  const client = new GraphQLClient(endpoint, {
+    headers: {
+      Connection: 'keep-alive',
+      'Accept-Encoding': '',
+      'Accept-Language': 'en-US,en;q=0.8'
+    }
+  })
+  client.request(query).then(function (data) {
+    callback(data)
+  })
+}
 
 exports.queryAllFundIncreaseByTag = function (tag, callback) {
   const query = gql`
@@ -28,7 +63,7 @@ exports.queryAllFundIncreaseByTag = function (tag, callback) {
   const variables = {
     tag: tag
   }
-  const client = new GraphQLClient(api.db, {
+  const client = new GraphQLClient(endpoint, {
     headers: {
       Connection: 'keep-alive',
       'Accept-Encoding': '',
@@ -55,7 +90,7 @@ exports.queryFundIncrease = function (code, callback) {
   const variables = {
     code: code
   }
-  const client = new GraphQLClient(api.db, {
+  const client = new GraphQLClient(endpoint, {
     headers: {
       Connection: 'keep-alive',
       'Accept-Encoding': '',
@@ -68,7 +103,10 @@ exports.queryFundIncrease = function (code, callback) {
 }
 
 exports.createFundIncrease = function (fund, callback) {
-  Log.success('Start api:createFundIncrease:' + fund.code)
+  logger.log('info', 'Start api: createFundIncrease, get code:' + fund.code, {
+    label: 'setp1'
+  })
+
   const query = gql`
     mutation($code: String!, $name: String, $input: FundIncreaseInput) {
       createFundIncrease(code: $code, name: $name, input: $input) {
@@ -96,7 +134,7 @@ exports.createFundIncrease = function (fund, callback) {
       serviceCharge: fund.serviceCharge
     }
   }
-  const client = new GraphQLClient(api.db, {
+  const client = new GraphQLClient(endpoint, {
     headers: {
       Connection: 'keep-alive',
       'Accept-Encoding': '',
@@ -109,7 +147,10 @@ exports.createFundIncrease = function (fund, callback) {
 }
 
 exports.updateFundIncrease = function (fund, callback) {
-  Log.success('Start api:updateFundIncrease: ' + fund.code)
+  logger.log('info', 'Start api: updateFundIncrease, get code:' + fund.code, {
+    label: 'setp1'
+  })
+
   const query = gql`
     mutation($code: String!, $update: FundIncreaseInput) {
       updateFundIncrease(code: $code, update: $update) {
@@ -139,7 +180,7 @@ exports.updateFundIncrease = function (fund, callback) {
       serviceCharge: fund.serviceCharge
     }
   }
-  const client = new GraphQLClient(api.db, {
+  const client = new GraphQLClient(endpoint, {
     headers: {
       Connection: 'keep-alive',
       'Accept-Encoding': '',
@@ -152,7 +193,14 @@ exports.updateFundIncrease = function (fund, callback) {
 }
 
 exports.updateFundIncreaseTag = function (fund, callback) {
-  Log.success('Start api: updateFundIncreaseTag, get code: ' + fund)
+  logger.log(
+    'info',
+    'Start api: updateFundIncreaseTag, get code:' + fund.code,
+    {
+      label: 'setp1'
+    }
+  )
+
   const query = gql`
     mutation($code: String!, $tag: String!) {
       updateFundIncreaseTag(code: $code, tag: $tag) {
@@ -164,7 +212,7 @@ exports.updateFundIncreaseTag = function (fund, callback) {
     code: fund.code,
     tag: fund.type
   }
-  const client = new GraphQLClient(api.db, {
+  const client = new GraphQLClient(endpoint, {
     headers: {
       Connection: 'keep-alive',
       'Accept-Encoding': '',
