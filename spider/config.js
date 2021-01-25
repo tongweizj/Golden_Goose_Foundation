@@ -9,6 +9,8 @@ module.exports = {
   },
   crawl: {
     rankUri:
-      'https://fundapi.eastmoney.com/fundtradenew.aspx?ft=%s&pi=1&pn=10000'
+      'https://fundapi.eastmoney.com/fundtradenew.aspx?ft=%s&pi=1&pn=10000',
+    fundPriceUri:
+      'https://fundf10.eastmoney.com/F10DataApi.aspx?type=lsjz&code=%s&page=1&per=1'
   }
 }

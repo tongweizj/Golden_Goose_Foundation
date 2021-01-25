@@ -1,6 +1,7 @@
 const Fund = require('../../models/fund');
 const FundIncrease = require('../../models/fund-increase');
-
+const MyHolds = require('../../models/my-holds');
+const FundHistory = require('../../models/fund-history');
 module.exports = {
   fund: ({ id }) => {
     try {
@@ -150,5 +151,76 @@ module.exports = {
     console.log(code);
     const filter = { code: code };
     return FundIncrease.findOneAndRemove(filter);
+  },
+
+  myHolds: () => {
+    try {
+      // const bookFetched = MyHolds.find();
+      // console.log(bookFetched);
+      return MyHolds.find();
+    } catch (error) {
+      throw error;
+    }
+  },
+  addMyHolds: async (args) => {
+    const { code, amount, cost, holdingIncome } = args.fund;
+    console.log(code);
+    console.log('%j', args.fund);
+    try {
+      const myHold = new MyHolds({
+        code: code,
+        amount: amount,
+        cost: cost,
+        holdingIncome: {
+          lastday: holdingIncome.lastday,
+          lastdayRate: holdingIncome.lastdayRate,
+          total: holdingIncome.total,
+          totalRate: holdingIncome.totalRate,
+        },
+      });
+
+      return myHold.save(myHold);
+    } catch (error) {
+      throw error;
+    }
+  },
+  // 根据基金编码查询基金历史价格
+  fundHistory: ({ code }) => {
+    try {
+      console.log(code);
+      // console.log(Fund.find({code:code}))
+      // const bookFetched = await Book.find()
+      // var query = { jd_id: new ObjectId(jd.id) };
+      // var condition = id ? { id: id} : {};
+      return FundHistory.findOne({ code: code });
+    } catch (error) {
+      throw error;
+    }
+  },
+  // 更新基金历史价格
+  updateFundHistory: async ({ code, update }) => {
+    try {
+      // 输入数据检验
+      // console.log(code);
+      // console.log(update);
+      const filter = { code: code };
+      let respone = await FundHistory.find(filter);
+      if (respone.length == 0) {
+        const newUpdate = {
+          code: code,
+          historty: [update],
+        };
+        return await FundHistory.create(newUpdate);
+      }
+      const lastday = respone[0].historty.slice(-1)[0];
+      if (lastday.date != update.date) {
+        const newUpdate = {
+          historty: [update],
+        };
+        return await FundHistory.findOneAndUpdate(filter, { $addToSet: newUpdate }, { lean: true, new: true, useFindAndModify: false });
+      }
+    } catch (error) {
+      throw error;
+    }
   },
 };

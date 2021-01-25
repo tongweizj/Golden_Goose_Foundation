@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const fundSchema = new Schema({
   name: String,
   code: String,
-  tags: Array
+  tags: Array,
 });
 
-module.exports = mongoose.model("fund", fundSchema);
+module.exports = mongoose.model('fund', fundSchema);

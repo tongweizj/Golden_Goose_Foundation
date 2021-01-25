@@ -33,26 +33,19 @@ class TaskQueue {
     this.count = 0
   }
 
-  static start(uriList) {
+  static start(uriString, taskList) {
     // 1. Init
-    // 1) 初始化 存储的路径
-    var now = DateFormat(new Date(), 'yyyy/mm/dd')
-    let storePath = ''
     // 2) 初始化 url
     let uri = ''
     // 2. 生成 taskQueue
     var taskQueue = new TaskQueue()
-    uriList.forEach(item => {
-      // 1) 构造本地存储地址
-      storePath = now + '/' + item + '.csv'
+    taskList.forEach(item => {
       // 2) 构造爬取 uri
-      uri = Util.format(config.crawl.rankUri, item)
+      uri = Util.format(uriString, item)
       // 3) 创建 task,加入 taskQueue
-      taskQueue.addTask(
-        new Task({ uri: uri, storePath: storePath, type: item })
-      )
+      taskQueue.addTask(new Task({ uri: uri, type: item }))
     })
-    taskQueue.count = uriList.length
+    taskQueue.count = taskList.length
 
     return taskQueue
   }

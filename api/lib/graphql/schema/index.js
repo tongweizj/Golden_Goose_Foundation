@@ -8,6 +8,18 @@ module.exports = buildSchema(`
     tags: [String]
   }
 
+  type MyHolds {
+    code: String!
+    amount: Float!
+    cost: Float!
+    holdingIncome:incomeMapTuple
+  }
+  type incomeMapTuple {
+    lastday: Float,
+    lastdayRate: Float,
+    total: Float,
+    totalRate: Float,
+  }
   type FundIncrease{
     name: String,
     code: String!,
@@ -26,7 +38,18 @@ module.exports = buildSchema(`
     fromBuild:String,
     serviceCharge:String
   }
-
+  type FundHistory {
+    code: String!
+    historty: [historyMapTuple]
+  }
+  type historyMapTuple {
+    date: String,
+    nav: Float,
+    cnw: Float,
+    changeRate: Float,
+    openBuy:Boolean,
+    openSell:Boolean
+  }
   input FundInput {
     name: String,
     code: String
@@ -47,14 +70,36 @@ module.exports = buildSchema(`
     fromBuild:String,
     serviceCharge:String
   }
-
+  input myHoldsInput {
+    code: String!,
+    amount: Float!,
+    cost: Float!,
+    holdingIncome:IncomeInput!
+  }
+  input IncomeInput {
+    lastday: Float,
+    lastdayRate: Float,
+    total: Float,
+    totalRate: Float,
+  }
+  input FundHistoryInput {
+    date: String,
+    nav: Float,
+    cnw: Float,
+    changeRate: Float,
+    openBuy:Boolean,
+    openSell:Boolean
+  }
+  
   type Query {
     fund(id:ID!): Fund,
     fundByCode(code:String!): Fund,
     funds: [Fund],
+    fundHistory(code:String!): [FundHistory],
     fundIncrease(code:String!): FundIncrease,
     fundsIncrease: [FundIncrease],
     fundsIncreaseByTag(tag:String!): [FundIncrease],
+    myHolds:[MyHolds],
   }
 
   type Mutation {
@@ -67,6 +112,10 @@ module.exports = buildSchema(`
     updateFundIncrease(code: String!, update: FundIncreaseInput): FundIncrease,
     updateFundIncreaseTag(code:String!,tag:String!):FundIncrease,
     deleteFundIncrease(code: String!): FundIncrease,
+
+    updateFundHistory(code: String!, update: FundHistoryInput): FundHistory,
+
+    addMyHolds(fund:myHoldsInput): MyHolds,
     
   }
   schema {
