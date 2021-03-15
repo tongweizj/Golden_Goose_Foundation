@@ -1,48 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-const mongoose = require('mongoose');
-const Fund = mongoose.model('fund');
-const FundIncrease = mongoose.model('fundIncrease');
-
-
+// const mongoose = require('mongoose');
+// const Fund = mongoose.model('fund');
+// const FundIncrease = mongoose.model('fundIncrease');
+const MyHoldsApi = require('../graphql/my-holds');
 router.get('/', (req, res) => {
-  Fund.find().sort({
-      postDate: -1
-    })
-    .then((funds) => {
-      // console.log(jds)
-      res.render('index', {
-        title: 'Home | zhaoWork.ca',
-        path: '/',
-        jobTitle:'All',
-        funds
-      });
-    })
-    .catch(() => {
-      res.send('Sorry! Something went wrong.');
+  MyHoldsApi.queryMyHolds(function (funds) {
+    console.log(funds.myHolds[0]);
+    // let fundsList = funds.myHolds;
+    res.render('index', {
+      title: '首页',
+      path: '/',
+      jobTitle: 'All',
+      funds: funds.myHolds,
     });
+  });
 });
-
-// router.get('/fundranking', (req, res) => {
-//   Jds.find({jobTitle:'machine learning engineer'}).sort({
-//       postDate: -1
-//     })
-//     .then((jds) => {
-//       // console.log(jds)
-//       res.render('index', {
-//         title: 'Home | zhaoWork.ca',
-//         path: '/',
-//         jobTitle:'ML',
-//         jds
-//       });
-//     })
-//     .catch(() => {
-//       res.send('Sorry! Something went wrong.');
-//     });
-// });
-
-
-
 
 module.exports = router;

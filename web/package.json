@@ -23,7 +23,9 @@
     "express-validator": "^6.4.0",
     "http-errors": "^1.8.0",
     "mongoose": "^5.9.5",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "graphql": "^15.4.0",
+    "graphql-request": "^3.3.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
