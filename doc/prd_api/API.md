@@ -1,14 +1,10 @@
 # API接口说明
 
+## 1. 基金相关表
 
-
-# 1. 基金相关表
-
-## 1.1 基金表
-
+### 1.1 基金表
 
 ### 1.1.1. 添加基金
-
 
 ```json
 // 语句
@@ -33,7 +29,6 @@ mutation($fund:FundInput){
 ```
 
 ### 1.1.2. 删除基金
-
 
 ```json
 // 语句
@@ -87,9 +82,11 @@ mutation($id:ID!,$input:FundInput){
   }
 }
 ```
+
 ### 1.1.4. 查询基金
 
 #### 1.1.4.1 查全部基金
+
 ```json
 // 查询
  query{
@@ -178,8 +175,6 @@ query ($code: String!) {
 }
 ```
 
-
-
 ## 1.2.基金历史价格
 
 ### 1.2.1. 添加单日的历史价格
@@ -241,11 +236,7 @@ mutation($code: String!,$update: FundHistoryInput){
 }
 ```
 
-
-
 ### 1.2.2. 批量添加历史价格
-
-
 
 ```json
 // 查询
@@ -316,7 +307,6 @@ query($code: String!){
 ```
 
 ## 1.3. 基金涨幅情况 FundIncreaseInput
-
 
 ### 1) 查询全部基金的涨幅情况
 
@@ -465,7 +455,6 @@ mutation($code:String!,$update:FundIncreaseInput){
 
 ### 5) 删除基金的涨幅情况
 
-
 ```json
 // 语句
 mutation($code:String!){
@@ -493,13 +482,11 @@ mutation($code:String!){
 }
 ```
 
+## 2. 用户表
 
+### 2.1 用户持有基金表
 
-# 2. 用户表
-
-## 2.1 用户持有基金表
-
-### 2.1.1 添加用户持有基金
+#### 2.1.1 添加用户持有基金
 
 ```json
 // 查询语句
@@ -548,7 +535,8 @@ mutation($fund:myHoldsInput){
 }
 ```
 
-### 2.1.2 查询用户持有基金
+#### 2.1.2 查询用户持有基金
+
 ```json
 // 查询
 query{
@@ -595,4 +583,5 @@ query{
   }
 }
 ```
+
 ### 2.1.3 更新用户持有基金
