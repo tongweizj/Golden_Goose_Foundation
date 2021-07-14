@@ -33,6 +33,8 @@ function saveToMongo(funds) {
           callback(null, '')
         }
       })
+      // TODO 2) 更新基金的涨幅记录
+      
     },
     function (err, results) {
       console.log(err)

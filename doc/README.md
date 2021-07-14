@@ -29,7 +29,7 @@
   - 爬虫
   - DB
 
-![](https://raw.githubusercontent.com/tongweizj/MaxNotes_Img/main/img/ggf-1.png)
+![x](https://raw.githubusercontent.com/tongweizj/MaxNotes_Img/main/img/ggf-1.png)
 ![image-20210226122359483](img/image-20210226122359483.png)
 
 ![蓝图](img/%E8%93%9D%E5%9B%BE.png)
