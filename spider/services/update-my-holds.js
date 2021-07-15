@@ -1,7 +1,7 @@
 var async = require('async')
 const logger = require('../utils/log')
 const DB = require('../graphql/fund-history')
-
+const myHoldDB = require('../graphql/my-holds')
 /// 将数据上传Mongo 服务器
 function saveToMongo(funds) {
   var waitListLength = 0
@@ -34,9 +34,19 @@ function saveToMongo(funds) {
         }
       })
       // TODO 2) 更新基金的涨幅记录
-      
+      var holdingIncome=[fund[6],{
+        "lastday": (parseFloat(fund[1])*parseFloat(fund[3]))/(1+parseFloat(fund[3])),
+        "lastdayRate": parseFloat(fund[3]),
+        "total": parseFloat(fund[1])*1000,
+        "totalRate": (parseFloat(fund[2])-2)/2
+      }]
+     
+      myHoldDB.updateHoldingIncome(holdingIncome, function (resp) { 
+        console.log('fanhui')
+        console.log(resp)})
     },
     function (err, results) {
+      console.log('disan')
       console.log(err)
       console.log(results)
       // 2) 创建新基金和涨幅记录

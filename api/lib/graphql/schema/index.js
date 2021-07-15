@@ -78,7 +78,7 @@ module.exports = buildSchema(`
   }
   input IncomeInput {
     lastday: Float,
-    lastdayRate: Float,
+    lastdayRate: Number,
     total: Float,
     totalRate: Float,
   }
@@ -116,7 +116,7 @@ module.exports = buildSchema(`
     updateFundHistory(code: String!, update: FundHistoryInput): FundHistory,
 
     addMyHolds(fund:myHoldsInput): MyHolds,
-    
+    updateMyHoldsHoldingIncome(code: String!, update: IncomeInput): MyHolds,
   }
   schema {
     query: Query

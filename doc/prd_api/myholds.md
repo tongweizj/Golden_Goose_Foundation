@@ -117,5 +117,53 @@ query{
 
 
 
-### 2.1.3 更新用户持有基金
+### 2.1.3 更新用户持有基金的收益
+
+// 查询语句
+
+```json
+mutation($code:String!,$update:IncomeInput){
+  updateMyHoldsHoldingIncome(code:$code,update:$update){
+    code
+    holdingIncome{
+      lastday
+      lastdayRate
+      total
+      totalRate
+    }
+  }
+}
+```
+
+// 查询 variables
+
+```JSON
+{
+  "code": "005267",
+  "update": {
+    "lastday": 10,
+    "lastdayRate": 0.1,
+    "total": 10000,
+    "totalRate": 1.5
+  }
+}
+```
+
+// 创建成功,返回信息
+
+```JSON
+{
+  "data": {
+    "updateMyHoldsHoldingIncome": {
+      "code": "005267",
+      "holdingIncome": {
+        "lastday": 10,
+        "lastdayRate": 0.1,
+        "total": 10000,
+        "totalRate": 1.5
+      }
+    }
+  }
+}
+```
 

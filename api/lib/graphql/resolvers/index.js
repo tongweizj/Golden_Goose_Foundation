@@ -184,6 +184,15 @@ module.exports = {
       throw error;
     }
   },
+  // 根据基金编码,更新持有收益数据
+  updateMyHoldsHoldingIncome: ({ code, update }) => {
+    // const { code, amount, cost, holdingIncome } = args.fund;
+    console.log(code);
+    console.log('%j', update);
+    const filter = { code: code };
+    const updateJson = {holdingIncome:update}
+    return MyHolds.findOneAndUpdate(filter,updateJson, { lean: true, new: true, useFindAndModify: false });
+  },  
   // 根据基金编码查询基金历史价格
   fundHistory: ({ code }) => {
     try {
