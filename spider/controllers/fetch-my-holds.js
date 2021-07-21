@@ -9,16 +9,19 @@ const saveToMongo = require('../services/update-my-holds')
 let count = 0 // 已采集总数
 
 function spider() {
+  var myHolds={}
   // 1. 抓取所有持有基金
 
   // 1) 检查基金是否存在
   MyHoldsApi.queryMyHolds(function (resp) {
     // 2)整理出一个采集列表
-    // console.log(resp.myHolds)
+    console.log(resp.myHolds)
     let fundList = []
     resp.myHolds.map(item => {
       fundList.push(item.code)
+      myHolds[item.code]=item
     })
+    // fundList = resp.myHolds
     // console.log(fundList)
     // 2. 抓取这些基金的最新价格
     let taskQueue = TaskQueue.start(config.crawl.fundPriceUri, fundList)
@@ -66,15 +69,18 @@ function spider() {
         // 1) 将采集数据格式化成 Json
         result.forEach(function (item) {
           // 1) 将采集数据格式化成 Json
-          //console.log(item)
+          console.log(item)
           //console.log(item.task.type)
           const fundPrice = parse.fundPrice(item.data) // 输入: 抓取页面的原始 html,输出: 基金列表
           fundPrice.push(item.task.type)
           fundPriceList.push(fundPrice)
         })
         // 3. 存储数据库
-        console.log('----------------------------')
-        saveToMongo(fundPriceList)
+        console.log('-----------fundPriceList-----------------')
+        console.log(fundPriceList)
+        console.log(myHolds)
+        
+        saveToMongo(fundPriceList,myHolds)
       }
     )
   })

@@ -10,6 +10,7 @@ module.exports = buildSchema(`
 
   type MyHolds {
     code: String!
+    name: String!
     amount: Float!
     cost: Float!
     holdingIncome:incomeMapTuple
@@ -72,13 +73,14 @@ module.exports = buildSchema(`
   }
   input myHoldsInput {
     code: String!,
+    name: String!,
     amount: Float!,
     cost: Float!,
     holdingIncome:IncomeInput!
   }
   input IncomeInput {
     lastday: Float,
-    lastdayRate: Number,
+    lastdayRate: Float,
     total: Float,
     totalRate: Float,
   }

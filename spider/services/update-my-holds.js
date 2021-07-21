@@ -3,13 +3,17 @@ const logger = require('../utils/log')
 const DB = require('../graphql/fund-history')
 const myHoldDB = require('../graphql/my-holds')
 /// 将数据上传Mongo 服务器
-function saveToMongo(funds) {
+function saveToMongo(funds,myHolds) {
+  console.log('-----------saveToMongo-----------------')
+  console.log(funds)
+  console.log(myHolds)
   var waitListLength = 0
   async.mapLimit(
     funds,
     1,
     function (fund, callback) {
       // 1) 上传基金历史价格
+      console.log('fund')
       console.log(fund)
       DB.updateFundHistory(fund, function (resp) {
         console.log(resp)
@@ -34,11 +38,12 @@ function saveToMongo(funds) {
         }
       })
       // TODO 2) 更新基金的涨幅记录
+
       var holdingIncome=[fund[6],{
-        "lastday": (parseFloat(fund[1])*parseFloat(fund[3]))/(1+parseFloat(fund[3])),
+        "lastday": (parseFloat(fund[1])*parseFloat(fund[3]))/(100+parseFloat(fund[3])),
         "lastdayRate": parseFloat(fund[3]),
-        "total": parseFloat(fund[1])*1000,
-        "totalRate": (parseFloat(fund[2])-2)/2
+        "total": parseFloat(fund[1])*myHolds[fund[6]]['amount'],
+        "totalRate": (parseFloat(fund[1])/myHolds[fund[6]]['cost']-1)
       }]
      
       myHoldDB.updateHoldingIncome(holdingIncome, function (resp) { 

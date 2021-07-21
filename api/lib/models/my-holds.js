@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const myHoldsSchema = new Schema({
   code: String,
+  name: String,
   amount: Number,
   cost: Number,
   holdingIncome: {

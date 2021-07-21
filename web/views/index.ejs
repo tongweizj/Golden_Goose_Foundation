@@ -161,9 +161,12 @@
               <tr role="row">
                 <th tabindex="0"  rowspan="1" colspan="1" aria-sort="ascending" >基金代码</th>
                 <th tabindex="0"  rowspan="1" colspan="1" aria-sort="ascending" >基金名</th>
-                <th class="d-none d-xl-table-cell " tabindex="0"  rowspan="1" colspan="1" >基金成本价</th>
-                <th class="d-none d-xl-table-cell " tabindex="0"  rowspan="1" colspan="1" >基金净值</th>
+                <th class="d-none d-xl-table-cell " tabindex="0"  rowspan="1" colspan="1" >持仓成本价</th>
+                <th class="d-none d-xl-table-cell " tabindex="0"  rowspan="1" colspan="1" >持有份额</th>
+                <th class="d-none d-md-table-cell " tabindex="0"  rowspan="1" colspan="1">持有金额</th>
+                <th tabindex="0"  rowspan="1" colspan="1" >昨日收益</th>
                 <th tabindex="0"  rowspan="1" colspan="1" >最新涨幅</th>
+                
                 <th class="d-none d-md-table-cell " tabindex="0"  rowspan="1" colspan="1">持有收益</th>
                 <th class="d-none d-md-table-cell " >持有收益比</th></tr>
             </thead>
@@ -172,13 +175,15 @@
                 <% for (let fund of funds) { %>
               <tr role="row" >
                 <th scope="row"><%= fund.code %> </th>
-                <th scope="row"><%= fund.code %> </th>
+                <th scope="row"><%= fund.name %> </th>
                 <td class="sorting_1"><%= fund.cost %> </td>
                 <td class="d-none d-xl-table-cell"> <%= fund.amount %> </td>
-                <td class="d-none d-xl-table-cell"> <%= fund.holdingIncome.lastday %> </td>
-                <td><span class="badge badge-success"> <%= fund.holdingIncome.lastdayRate %> </span></td>
                 <td class="d-none d-md-table-cell"> <%= fund.holdingIncome.total %> </td>
-                <td class="d-none d-md-table-cell"> <%= fund.holdingIncome.totalRate %> </td>
+                <td class="d-none d-xl-table-cell"> <%= fund.lastdayIncome %> </td>
+                <td><span class="badge badge-success"> <%= fund.holdingIncome.lastdayRate %>% </span></td>
+                
+                <td class="d-none d-md-table-cell"> <%= fund.holdingIncome.all %> </td>
+                <td class="d-none d-md-table-cell"> <%= fund.holdingIncome.totalRate %>% </td>
               </tr>
               <% } %>
               <% } else { %>

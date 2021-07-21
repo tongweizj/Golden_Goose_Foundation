@@ -8,6 +8,7 @@ exports.queryMyHolds = function (callback) {
     query {
       myHolds {
         code
+        name
         cost
         amount
         holdingIncome {
