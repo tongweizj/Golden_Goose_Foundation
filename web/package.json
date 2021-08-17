@@ -25,7 +25,9 @@
     "mongoose": "^5.9.5",
     "morgan": "^1.10.0",
     "graphql": "^15.4.0",
-    "graphql-request": "^3.3.0"
+    "graphql-request": "^3.3.0",
+    "child_process": "^1.0.2",
+    "axios": "^0.21.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

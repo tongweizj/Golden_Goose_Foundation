@@ -5,9 +5,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const bodyParser = require('body-parser');
 
+const adminRoutes = require('./server/routes/admin');
 const routes = require('./controllers/index');
 const fundRouter = require('./controllers/fund');
-
+const sprider = require('./controllers/sprider')
 // const fund = require('./models/fund');
 const app = express();
 
@@ -24,8 +25,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use('/sprider', sprider);
 app.use('/fund', fundRouter);
+app.use('/admin', adminRoutes);
 app.use('/', routes);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

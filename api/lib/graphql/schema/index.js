@@ -102,6 +102,7 @@ module.exports = buildSchema(`
     fundsIncrease: [FundIncrease],
     fundsIncreaseByTag(tag:String!): [FundIncrease],
     myHolds:[MyHolds],
+    myHoldByCode(code:String!):MyHolds,
   }
 
   type Mutation {
@@ -118,6 +119,7 @@ module.exports = buildSchema(`
     updateFundHistory(code: String!, update: FundHistoryInput): FundHistory,
 
     addMyHolds(fund:myHoldsInput): MyHolds,
+    updateMyHolds(code: String!, amount: Float!,cost: Float!,): MyHolds,
     updateMyHoldsHoldingIncome(code: String!, update: IncomeInput): MyHolds,
   }
   schema {

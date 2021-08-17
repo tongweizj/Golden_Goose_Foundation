@@ -1,26 +1,46 @@
-<%- include('../includes/head.ejs') %>
-<link rel="stylesheet" href="/css/dashboard.css">
-</head>
 
-<body>
-  <%- include('./nav.ejs') %>
-  
-  <div class="container-fluid">
+<!-- include header -->
+    <%- include('include/_header') %>
+<!-- /include header -->
+
+<div class="container-fluid">
     <div class="row">
-        <%- include('./sideNav.ejs') %>
-  
-      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Dashboard</h1>
-          <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group mr-2">
-              <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+        <!-- sidebarMenu Site -->
+        <%- include('include/_sidebarMenu') %>
+    <!-- Main Site -->
+    <main id="site-main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div class="container">
+            <div class="box-nav d-flex justify-between">
+                <a href="/add-user" class="border-shadow">
+                    <span class="text-gradient">New User <i class="fas fa-user"></i></span>
+                </a>
             </div>
-          </div>
-        </div>
-      </main>
-    </div>
-  </div>
 
-<%- include('../includes/end.ejs') %>
+            <!-- form handling -->
+            <form action="/" method="POST">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>基金代码</th>
+                            <th>基金名</th>
+                            <th>持仓成本价</th>
+                            <th>持有份额</th>
+                            <th>持有金额</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%- include('myholds/_show') %>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </main>
+<!-- /Main Site -->
+    </div>
+</div>
+
+<!-- include footer -->
+<%- include('include/_footer') %>
+<!-- /include footer -->

@@ -32,3 +32,71 @@ exports.queryMyHolds = function (callback) {
     callback(data);
   });
 };
+
+exports.queryMyHoldByCode = function (code,callback) {
+  const query = gql`
+  query ($code: String!) {
+    myHoldByCode(
+    code:$code
+  ){
+    code
+    name
+    amount
+    cost
+    holdingIncome{
+        lastday
+        lastdayRate
+        total
+        totalRate
+      }
+  }}
+  `;
+  const variables = {
+    code: code
+  }
+  // console.log(variables);
+  const client = new GraphQLClient(endpoint, {
+    headers: {
+      Connection: 'keep-alive',
+      'Accept-Encoding': '',
+      'Accept-Language': 'en-US,en;q=0.8',
+    },
+  });
+  client.request(query,variables).then(function (data) {
+    callback(data);
+  });
+};
+
+exports.updateMyHolds = function (code,amount,cost,callback) {
+  const query = gql`
+  mutation($code:String!,$amount:Float!,$cost:Float!){
+    updateMyHolds(code:$code,amount:$amount,cost:$cost){
+      code
+      amount
+      cost
+      holdingIncome{
+        lastday
+        lastdayRate
+        total
+        totalRate
+      }
+    }
+  }
+  `;
+  const variables = {
+    code: code,
+    amount: parseFloat(amount),
+    cost:parseFloat(cost)
+  }
+  // console.log(variables);
+  const client = new GraphQLClient(endpoint, {
+    headers: {
+      Connection: 'keep-alive',
+      'Accept-Encoding': '',
+      'Accept-Language': 'en-US,en;q=0.8',
+    },
+  });
+  client.request(query,variables).then(function (data) {
+    callback(data);
+  });
+};

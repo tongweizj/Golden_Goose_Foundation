@@ -162,6 +162,18 @@ module.exports = {
       throw error;
     }
   },
+  myHoldByCode: ({ code }) => {
+    try {
+      console.log(code);
+      // console.log(Fund.find({code:code}))
+      // const bookFetched = await Book.find()
+      // var query = { jd_id: new ObjectId(jd.id) };
+      // var condition = id ? { id: id} : {};
+      return MyHolds.findOne({ code: code });
+    } catch (error) {
+      throw error;
+    }
+  },
   addMyHolds: async (args) => {
     const { code, amount, cost, holdingIncome } = args.fund;
     console.log(code);
@@ -184,6 +196,15 @@ module.exports = {
       throw error;
     }
   },
+  // 根据基金编码,更新持有情况
+  updateMyHolds: ({ code, amount, cost }) => {
+
+      console.log(code);
+      console.log('%j', amount);
+      const filter = { code: code };
+      const updateJson = {amount:amount,cost: cost}
+      return MyHolds.findOneAndUpdate(filter,updateJson, { lean: true, new: true, useFindAndModify: false });
+  }, 
   // 根据基金编码,更新持有收益数据
   updateMyHoldsHoldingIncome: ({ code, update }) => {
     // const { code, amount, cost, holdingIncome } = args.fund;
