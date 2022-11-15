@@ -1,5 +1,8 @@
 # 金母鹅基金
 
+当前的技术栈中使用了 graphql,对于只有一个人在维护的代码,显得过于复杂了.
+并且,时间就了,现在也暂时不能恢复.
+放弃这个版本!
 
 ## 文档使用说明
 
@@ -17,12 +20,6 @@ README 包含以下内容:
 - [x] #spider 借用代码打底, [fund-crawler](https://github.com/nullpointer/fund-crawler)
 - [x] #spider 删除多余代码: 分析模块\保存数据到 github 模块
 - [x] #spider 增加模块,将采集的数据,以 csv 的格式保存在本地
-
-### v 0.2 基金排名
-- [x] #API 新建基金
-- [x] #API 添加基金的排名
-- [x] #spider 采集的基金列表,保存到 mongoDB
-- [x] #web 显示各类基金的排行
 
 ### v0.3 观测基金
 
