@@ -1,9 +1,5 @@
 # 金母鹅基金
 
-当前的技术栈中使用了 graphql,对于只有一个人在维护的代码,显得过于复杂了.
-并且,时间就了,现在也暂时不能恢复.
-放弃这个版本!
-
 ## 文档使用说明
 
 README 包含以下内容:
@@ -13,7 +9,28 @@ README 包含以下内容:
 不包含以下内容:
 - 项目说明文档,请看 Notion/workspace/个人项目/GGF
 
-## ToDo
+
+## 技术栈
+
+- 数据库 Mongo
+- backend
+  - nodejs / KOA
+  - [node-crawler](https://node-crawler.readthedocs.io/zh_CN/latest/)
+- web
+  - nodejs / vue
+
+
+## 核心需求
+
+- backend
+  - 定时抓取
+    - 国内目标基金当天的价格信息
+    - 北美市场的目标基金的当天价格信息
+  - 交易决策辅助
+    - 计算均线
+- web
+  - 展示基金列表数据
+  - 展示单只基金的详情
 
 ### v 0.1 打底
 
