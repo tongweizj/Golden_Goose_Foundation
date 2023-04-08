@@ -22,6 +22,19 @@ README 包含以下内容:
 - analysis 数据分析
 - admin   web,快速查看数据
 
+## 技术栈
+
+- crawler
+  - python
+- api
+  - python flask
+- chatbot
+  - python
+- web
+  - nodejs koa
+- DB
+  - PostgreSQL
+
 ## Feature List
 
 ## Crawler
