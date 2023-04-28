@@ -6,6 +6,7 @@
 # python
 # 更新依赖库
 pip3 freeze > requirements.txt
+pip3 install -r requirements.txt
 ```
 ## Docker Install
 
