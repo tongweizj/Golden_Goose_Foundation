@@ -1,0 +1,51 @@
+<!-- include header -->
+<%- include('../include/_header') %>
+<!-- /include header -->
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- sidebarMenu Site -->
+        <%- include('../include/_sidebarMenu') %>
+        <!-- Main Site -->
+    <main id="site-main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div class="container">
+            <div class="box-nav d-flex justify-between">
+            <div class="filter">
+                <a href="/"><i class="fas fa-angle-double-left"></i> All Users</a>
+            </div>
+            </div>
+            <div class="form-title text-center">
+                <h2 class="text-dark">Update User</h2>
+                <span class="text-light">Use the below form to Update an account</span>
+            </div>
+
+            <!-- add user form -->
+            <form  action="/admin/form/myholds/update"  method="POST" id="update">
+                <div class="table table-striped table-sm">
+                    <div class="form-group">
+                        <label for="name" class="text-gray">基金名称</label>
+                        <input type="text" name="name" value="<%= fund.name %>" placeholder="基金名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="code" class="text-gray">基金代码</label>
+                        <input type="text" name="code" value="<%= fund.code %>" placeholder="基金代码">
+                    </div>
+                    <div class="form-group">
+                        <label for="amount" class="text-gray">持有数量</label>
+                        <input type="text" name="amount" value="<%= fund.amount%>" placeholder="持有数量">
+                    </div>
+                    <div class="form-group">
+                        <label for="cost" class="text-gray">持有价格</label>
+                        <input type="text" name="cost" value="<%= fund.cost%>" placeholder="持有价格">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn text-dark update">Save</button>
+                    </div>
+                </div>
+            </form>
+            <!-- form handling -->
+         
+        </div>
+    </main>
+    <!-- /Main Site -->
+</div>

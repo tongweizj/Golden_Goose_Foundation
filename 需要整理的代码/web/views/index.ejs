@@ -1,0 +1,200 @@
+<%- include('./layout/head.ejs') %>
+</head>
+
+<body  data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-behavior="sticky" style=""">
+  <div class="wrapper">
+  <%- include('./layout/sidebar.ejs') %>
+  <div class="main">
+    <%- include('./layout/navigation.ejs') %>
+    <main class="content">
+      <div class="container-fluid p-0">
+
+        <div class="row mb-2 mb-xl-3">
+          <div class="col-auto d-none d-sm-block">
+            <h3>Dashboard</h3>
+          </div>
+
+          <div class="col-auto ml-auto text-right mt-n1">
+            <span class="dropdown mr-2">
+    <button class="btn btn-light bg-white shadow-sm dropdown-toggle" id="day" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar align-middle mt-n1"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Today
+    </button>
+    <div class="dropdown-menu" aria-labelledby="day">
+      <h6 class="dropdown-header">Settings</h6>
+      <a class="dropdown-item" href="#">Action</a>
+      <a class="dropdown-item" href="#">Another action</a>
+      <a class="dropdown-item" href="#">Something else here</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="#">Separated link</a>
+    </div>
+  </span>
+
+            <button class="btn btn-primary shadow-sm">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter align-middle"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+  </button>
+  <a target="_blank" href="/sprider">
+            <button class="btn btn-primary shadow-sm">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-refresh-cw align-middle"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+  </button></a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5 col-xxl-3 d-flex">
+            <div class="card flex-fill">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col mt-0">
+                    <h5 class="card-title">总金额</h5>
+                  </div>
+
+                  <div class="col-auto">
+                    <div class="stat stat-sm">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag align-middle"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    </div>
+                  </div>
+                </div>
+                <span class="h1 d-inline-block mt-1 mb-3">$37.500</span>
+                <div class="mb-0">
+                  <span class="badge badge-soft-success mr-2"> <i class="mdi mdi-arrow-bottom-right"></i> 6.25% </span>
+                  <span class="text-muted">Since last week</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 col-xxl-2 d-flex">
+            <div class="card flex-fill">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col mt-0">
+                    <h5 class="card-title">昨日收益</h5>
+                  </div>
+
+                  <div class="col-auto">
+                    <div class="stat stat-sm">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart align-middle"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    </div>
+                  </div>
+                </div>
+                <span class="h1 d-inline-block mt-1 mb-3">3.282</span>
+                <div class="mb-0">
+                  <span class="badge badge-soft-danger mr-2"> <i class="mdi mdi-arrow-bottom-right"></i> -4.65% </span>
+                  <span class="text-muted">Since last week</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 col-xxl-2 d-flex">
+            <div class="card flex-fill">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col mt-0">
+                    <h5 class="card-title">持有收益</h5>
+                  </div>
+
+                  <div class="col-auto">
+                    <div class="stat stat-sm">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity align-middle"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    </div>
+                  </div>
+                </div>
+                <span class="h1 d-inline-block mt-1 mb-3">19.312</span>
+                <div class="mb-0">
+                  <span class="badge badge-soft-success mr-2"> <i class="mdi mdi-arrow-bottom-right"></i> 8.35% </span>
+                  <span class="text-muted">Since last week</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 col-xxl-2 d-flex">
+            <div class="card flex-fill">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col mt-0">
+                    <h5 class="card-title">累计收益</h5>
+                  </div>
+
+                  <div class="col-auto">
+                    <div class="stat stat-sm">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity align-middle"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    </div>
+                  </div>
+                </div>
+                <span class="h1 d-inline-block mt-1 mb-3">19.312</span>
+                <div class="mb-0">
+                  <span class="badge badge-soft-success mr-2"> <i class="mdi mdi-arrow-bottom-right"></i> 8.35% </span>
+                  <span class="text-muted">Since last week</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-xxl-3 d-flex">
+            <div class="card illustration flex-fill">
+              <div class="card-body p-0 d-flex flex-fill">
+                <div class="row no-gutters w-100">
+                  <div class="col-6">
+                    <div class="illustration-text p-3 m-1">
+                      <h4 class="illustration-text">Welcome Back, Max!</h4>
+                      <p class="mb-0">AppStack Dashboard</p>
+                    </div>
+                  </div>
+                  <div class="col-6 align-self-end text-right">
+                    <img src="img/illustrations/social.png" alt="Social" class="img-fluid illustration-img">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card flex-fill">
+          <div class="card-header">
+            <h5 class="card-title mb-0">持有基金</h5>
+          </div>
+          <div id="datatables-dashboard-projects_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+            <div class="row">
+              <div class="col-sm-12 col-md-6"></div>
+              <div class="col-sm-12 col-md-6"></div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <table id="datatables-dashboard-projects" class="table table-striped my-0 dataTable no-footer" role="grid" aria-describedby="datatables-dashboard-projects_info">
+                  <thead>
+              <tr role="row">
+                <th tabindex="0"  rowspan="1" colspan="1" aria-sort="ascending" >基金代码</th>
+                <th tabindex="0"  rowspan="1" colspan="1" aria-sort="ascending" >基金名</th>
+                <th class="d-none d-xl-table-cell " tabindex="0"  rowspan="1" colspan="1" >持仓成本价</th>
+                <th class="d-none d-xl-table-cell " tabindex="0"  rowspan="1" colspan="1" >持有份额</th>
+                <th class="d-none d-md-table-cell " tabindex="0"  rowspan="1" colspan="1">持有金额</th>
+                <th tabindex="0"  rowspan="1" colspan="1" >昨日收益</th>
+                <th tabindex="0"  rowspan="1" colspan="1" >最新涨幅</th>
+                
+                <th class="d-none d-md-table-cell " tabindex="0"  rowspan="1" colspan="1">持有收益</th>
+                <th class="d-none d-md-table-cell " >持有收益比</th></tr>
+            </thead>
+            <tbody>
+              <% if (funds.length > 0) { %>
+                <% for (let fund of funds) { %>
+              <tr role="row" >
+                <th scope="row"><%= fund.code %> </th>
+                <th scope="row"><%= fund.name %> </th>
+                <td class="sorting_1"><%= fund.cost %> </td>
+                <td class="d-none d-xl-table-cell"> <%= fund.amount %> </td>
+                <td class="d-none d-md-table-cell"> <%= fund.holdingIncome.total %> </td>
+                <td class="d-none d-xl-table-cell"> <%= fund.lastdayIncome %> </td>
+                <td><span class="badge badge-success"> <%= fund.holdingIncome.lastdayRate %>% </span></td>
+                
+                <td class="d-none d-md-table-cell"> <%= fund.holdingIncome.all %> </td>
+                <td class="d-none d-md-table-cell"> <%= fund.holdingIncome.totalRate %>% </td>
+              </tr>
+              <% } %>
+              <% } else { %>
+                <h1>暂时没有基金!</h1>
+              <% } %>
+          
+            </tbody>
+          </table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="datatables-dashboard-projects_info" role="status" aria-live="polite">Showing 1 to 6 of 9 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="datatables-dashboard-projects_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="datatables-dashboard-projects_previous"><a href="#" aria-controls="datatables-dashboard-projects" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="datatables-dashboard-projects" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="datatables-dashboard-projects" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item next" id="datatables-dashboard-projects_next"><a href="#" aria-controls="datatables-dashboard-projects" data-dt-idx="3" tabindex="0" class="page-link">Next</a></li></ul></div></div></div></div>
+        </div>
+      </div>
+  </main>
+    <%- include('./layout/footer.ejs') %>
+  </div>
